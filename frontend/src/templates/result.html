@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Photos</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/result.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Photos</h1>
+            <p>Here are all the photos we found of you from the event</p>
+        </header>
+
+        <main>
+            <div id="photos-grid" class="photos-grid">
+                <!-- Photos will be inserted here by JavaScript -->
+            </div>
+
+            <div id="no-photos" hidden>
+                <p>No photos were found. Would you like to try again?</p>
+                <button onclick="window.history.back()">Try Again</button>
+            </div>
+
+            <div class="download-section">
+                <button id="download-all-btn">Download All Photos</button>
+            </div>
+        </main>
+    </div>
+    <script>
+        const resultId = "{{ resultId }}"; // Pass resultId to the JavaScript
+    </script>
+    <script src="/static/js/result.js"></script>
+</body>
+</html>

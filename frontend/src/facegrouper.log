@@ -1,0 +1,370 @@
+2024-12-27 09:59:11,048 - INFO - No images found for event_id: event_id
+2024-12-27 10:00:20,684 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-27 10:01:46,074 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-27 10:01:46,079 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 10:02:11,742 - INFO - Processing image: DSC_5213.JPG
+2024-12-27 10:03:20,996 - INFO - Processing completed for event_id: 1
+2024-12-27 10:08:40,130 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-27 10:08:40,134 - INFO - Processing image: DSC_5213.JPG
+2024-12-27 10:09:11,469 - INFO - Processing image: DSC_5216 - Copy.JPG
+2024-12-27 10:09:55,483 - INFO - Processing completed for event_id: 1
+2024-12-27 10:10:43,378 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-27 10:10:43,385 - INFO - Processing image: DSC_5213.JPG
+2024-12-27 10:11:16,336 - INFO - Processing image: DSC_5216 - Copy.JPG
+2024-12-27 10:29:43,291 - INFO - Processing images for event_id: 1, Total images: 3
+2024-12-27 10:29:43,295 - INFO - Processing image: DSC_5075.JPG
+2024-12-27 10:30:07,701 - INFO - Processing image: DSC_5112.JPG
+2024-12-27 10:30:24,531 - INFO - Processing image: DSC_5216.JPG
+2024-12-27 10:31:04,268 - INFO - Processing completed for event_id: 1
+2024-12-27 10:32:57,396 - INFO - Processing images for event_id: 2, Total images: 3
+2024-12-27 10:32:57,402 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 10:33:14,981 - INFO - Processing image: DSC_5408.JPG
+2024-12-27 10:33:31,816 - INFO - Processing image: DSC_5781.JPG
+2024-12-27 10:34:07,851 - INFO - Processing completed for event_id: 2
+2024-12-27 10:34:49,162 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 10:34:49,167 - INFO - Processing image: DSC_5700.JPG
+2024-12-27 10:34:55,728 - INFO - Processing completed for event_id: 3
+2024-12-27 10:45:56,206 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-27 10:45:56,210 - INFO - Processing image: DSC_5112.JPG
+2024-12-27 10:46:13,766 - INFO - Processing completed for event_id: 4
+2024-12-27 10:51:59,325 - INFO - Processing images for event_id: 5, Total images: 3
+2024-12-27 10:51:59,330 - INFO - Processing image: DSC_5239.JPG
+2024-12-27 10:53:12,707 - INFO - Processing image: DSC_5408.JPG
+2024-12-27 10:53:37,670 - INFO - Processing image: DSC_5658.JPG
+2024-12-27 10:53:51,782 - INFO - Processing completed for event_id: 5
+2024-12-27 10:53:52,516 - INFO - Processing images for event_id: 6, Total images: 1
+2024-12-27 10:53:52,527 - INFO - Processing image: DSC_5524.JPG
+2024-12-27 10:54:02,066 - INFO - Processing completed for event_id: 6
+2024-12-27 11:10:43,743 - INFO - Processing images for event_id: 1, Total images: 3
+2024-12-27 11:10:43,747 - INFO - Processing image: DSC_5101.JPG
+2024-12-27 11:11:04,078 - INFO - Processing image: DSC_5112.JPG
+2024-12-27 11:11:28,398 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 11:11:52,467 - INFO - Processing completed for event: wedding
+2024-12-27 11:12:53,210 - INFO - Processing images for event_id: 2, Total images: 2
+2024-12-27 11:12:53,214 - INFO - Processing image: DSC_5656.JPG
+2024-12-27 11:13:03,868 - INFO - Processing image: DSC_5658.JPG
+2024-12-27 11:13:15,098 - INFO - Processing completed for event: nitin
+2024-12-27 11:17:16,595 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 11:17:16,599 - INFO - Processing image: DSC_5746.JPG
+2024-12-27 11:17:36,214 - INFO - Processing completed for event: fsss
+2024-12-27 11:19:43,791 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-27 11:19:43,795 - INFO - Processing image: DSC_5239.JPG
+2024-12-27 11:20:38,035 - INFO - Processing completed for event: 4
+2024-12-27 11:47:49,321 - INFO - Processing images for event_id: 1, Total images: 1
+2024-12-27 11:47:49,327 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 11:48:05,820 - INFO - Processing completed for event: 1
+2024-12-27 11:58:30,992 - INFO - Processing images for event_id: 2, Total images: 1
+2024-12-27 11:58:30,997 - INFO - Processing image: DSC_5040.JPG
+2024-12-27 11:58:46,996 - INFO - Processing completed for event: 2
+2024-12-27 12:02:32,736 - INFO - Processing images for event_id: 1, Total images: 8
+2024-12-27 12:02:32,740 - INFO - Processing image: DSC_5040.JPG
+2024-12-27 12:02:54,159 - INFO - Processing image: DSC_5052.JPG
+2024-12-27 12:03:05,276 - INFO - Processing image: DSC_5746.JPG
+2024-12-27 12:03:21,353 - INFO - Processing image: DSC_5746.JPG
+2024-12-27 12:07:50,550 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 12:07:50,554 - INFO - Processing image: DSC_5101.JPG
+2024-12-27 12:08:14,050 - INFO - Processing completed for event: 3
+2024-12-27 12:20:27,006 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-27 12:20:27,011 - INFO - Processing image: DSC_5216.JPG
+2024-12-27 12:21:03,877 - INFO - Processing completed for event: 4
+2024-12-27 12:24:18,743 - INFO - Processing images for event_id: 1, Total images: 1
+2024-12-27 12:24:18,755 - INFO - Processing image: DSC_5101.JPG
+2024-12-27 12:24:40,925 - INFO - Processing completed for event: 1
+2024-12-27 13:09:23,776 - INFO - Processing images for event_id: 2, Total images: 1
+2024-12-27 13:09:23,791 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 13:09:40,478 - INFO - Processing completed for event: 2
+2024-12-27 13:10:53,037 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 13:10:53,041 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 13:11:02,795 - INFO - Processing completed for event: 3
+2024-12-27 13:57:59,779 - INFO - Processing images for event_id: 1, Total images: 1
+2024-12-27 13:57:59,783 - INFO - Processing image: DSC_5036.JPG
+2024-12-27 13:58:06,029 - INFO - Processing completed for event: 1
+2024-12-27 14:12:16,571 - INFO - Processing images for event_id: 2, Total images: 1
+2024-12-27 14:12:16,576 - INFO - Processing image: DSC_5213.JPG
+2024-12-27 14:12:47,753 - INFO - Processing completed for event: 2
+2024-12-27 14:15:49,878 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 14:15:49,884 - INFO - Processing image: DSC_5068.JPG
+2024-12-27 14:16:11,339 - INFO - Processing completed for event: 3
+2024-12-27 14:16:47,251 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-27 14:16:47,257 - INFO - Processing image: DSC_5656.JPG
+2024-12-27 14:16:58,374 - INFO - Processing completed for event: 4
+2024-12-27 14:30:39,620 - INFO - Processing images for event_id: 5, Total images: 1
+2024-12-27 14:30:39,625 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 14:31:00,727 - INFO - Processing completed for event: 5
+2024-12-27 14:32:37,964 - INFO - Processing images for event_id: 6, Total images: 1
+2024-12-27 14:32:37,971 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 14:32:57,732 - INFO - Processing completed for event: 6
+2024-12-27 14:41:10,180 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-27 14:41:10,183 - INFO - Processing image: DSC_5075.JPG
+2024-12-27 14:41:22,845 - INFO - Processing image: DSC_5112.JPG
+2024-12-27 14:42:56,811 - INFO - Processing images for event_id: 1, Total images: 3
+2024-12-27 14:42:56,815 - INFO - Processing image: DSC_4954.JPG
+2024-12-27 14:43:02,396 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 14:43:11,091 - INFO - Processing image: DSC_5301.JPG
+2024-12-27 14:43:23,297 - INFO - Processing completed for event: 1
+2024-12-27 15:15:59,198 - INFO - Processing images for event_id: 1, Total images: 3
+2024-12-27 15:15:59,203 - INFO - Processing image: DSC_5239.JPG
+2024-12-27 15:16:49,376 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 15:16:59,434 - INFO - Processing image: DSC_5301.JPG
+2024-12-27 15:17:12,770 - INFO - Processing completed for event: 1
+2024-12-27 15:47:35,496 - INFO - Processing images for event_id: 1, Total images: 3
+2024-12-27 15:47:35,500 - INFO - Processing image: DSC_5239.JPG
+2024-12-27 15:48:26,013 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 15:48:37,497 - INFO - Processing image: DSC_5301.JPG
+2024-12-27 15:48:52,598 - INFO - Processing completed for event: 1
+2024-12-27 15:57:49,302 - INFO - Processing images for event_id: 1, Total images: 1
+2024-12-27 15:57:49,306 - INFO - Processing image: DSC_5656.JPG
+2024-12-27 15:58:07,241 - INFO - Processing completed for event: 1
+2024-12-27 16:01:23,598 - INFO - Processing images for event_id: 2, Total images: 1
+2024-12-27 16:01:23,605 - INFO - Processing image: DSC_5213.JPG
+2024-12-27 16:01:57,861 - INFO - Processing completed for event: 2
+2024-12-27 16:15:00,985 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-27 16:15:00,989 - INFO - Processing image: DSC_5117.JPG
+2024-12-27 16:15:19,020 - INFO - Processing completed for event: 3
+2024-12-27 16:16:30,998 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-27 16:16:31,003 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 16:16:41,526 - INFO - Processing completed for event: 4
+2024-12-27 16:52:01,221 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-27 16:52:01,225 - INFO - Processing image: DSC_4954.JPG
+2024-12-27 16:52:07,137 - INFO - Processing image: DSC_5233.JPG
+2024-12-27 16:52:23,962 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 16:52:33,102 - INFO - Processing image: DSC_5301.JPG
+2024-12-27 16:52:45,436 - INFO - Processing completed for event: 1
+2024-12-27 17:04:16,040 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-27 17:04:16,045 - INFO - Processing image: DSC_4954.JPG
+2024-12-27 17:04:21,703 - INFO - Processing image: DSC_5233.JPG
+2024-12-27 17:04:34,062 - INFO - Processing image: DSC_5252.JPG
+2024-12-27 17:04:43,013 - INFO - Processing image: DSC_5301.JPG
+2024-12-27 17:04:55,223 - INFO - Processing completed for event: 1
+2024-12-29 21:54:52,925 - INFO - Processing images for event_id: 2, Total images: 4
+2024-12-29 21:54:52,930 - INFO - Processing image: DSC_5233.JPG
+2024-12-29 21:55:11,541 - INFO - Processing image: DSC_5252.JPG
+2024-12-29 21:55:21,154 - INFO - Processing image: DSC_5301.JPG
+2024-12-29 21:55:34,339 - INFO - Processing image: DSC_5781.JPG
+2024-12-29 21:56:09,990 - INFO - Processing completed for event: 2
+2024-12-30 09:27:52,909 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-30 09:27:52,917 - INFO - Processing image: DSC_5238.JPG
+2024-12-30 09:29:09,397 - INFO - Processing image: DSC_5239.JPG
+2024-12-30 09:31:20,390 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 09:31:32,930 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 09:33:02,216 - INFO - Processing completed for event: 1
+2024-12-30 10:14:09,430 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-30 10:14:09,435 - INFO - Processing image: DSC_5301.JPG
+2024-12-30 10:14:24,266 - INFO - Processing image: DSC_5658.JPG
+2024-12-30 10:14:33,579 - INFO - Processing completed for event: 1
+2024-12-30 10:18:07,623 - INFO - Processing images for event_id: 2, Total images: 2
+2024-12-30 10:18:07,626 - INFO - Processing image: DSC_5101.JPG
+2024-12-30 10:18:34,336 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 10:18:43,603 - INFO - Processing completed for event: 2
+2024-12-30 10:40:18,028 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-30 10:40:18,032 - INFO - Processing image: DSC_4954.JPG
+2024-12-30 10:40:23,785 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 10:40:34,205 - INFO - Processing image: DSC_5300.JPG
+2024-12-30 10:40:43,952 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 10:41:18,725 - INFO - Processing completed for event: 1
+2024-12-30 10:55:14,424 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-30 10:55:14,430 - INFO - Processing image: DSC_4954.JPG
+2024-12-30 10:55:20,170 - INFO - Processing image: DSC_4958.JPG
+2024-12-30 10:55:38,707 - INFO - Processing completed for event: 1
+2024-12-30 10:59:34,287 - INFO - Processing images for event_id: 2, Total images: 6
+2024-12-30 10:59:34,294 - INFO - Processing image: DSC_5101.JPG
+2024-12-30 10:59:53,797 - INFO - Processing image: DSC_5213.JPG
+2024-12-30 11:00:17,989 - INFO - Processing image: DSC_5290.JPG
+2024-12-30 11:00:26,685 - INFO - Processing image: DSC_5362.JPG
+2024-12-30 11:01:13,273 - INFO - Processing image: DSC_5656.JPG
+2024-12-30 11:01:21,858 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 11:01:54,550 - INFO - Processing completed for event: 2
+2024-12-30 11:25:55,998 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-30 11:25:56,005 - INFO - Processing image: DSC_4954.JPG
+2024-12-30 11:26:01,968 - INFO - Processing completed for event: 3
+2024-12-30 11:35:01,211 - INFO - Processing images for event_id: 4, Total images: 1
+2024-12-30 11:35:01,214 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 11:35:12,094 - INFO - Processing completed for event: 4
+2024-12-30 11:44:30,424 - INFO - Processing images for event_id: 5, Total images: 43
+2024-12-30 11:44:30,429 - INFO - Processing image: DSC_4954.JPG
+2024-12-30 11:44:39,741 - INFO - Processing image: DSC_4958.JPG
+2024-12-30 11:44:56,019 - INFO - Processing image: DSC_5005.JPG
+2024-12-30 11:45:04,762 - INFO - Processing image: DSC_5036.JPG
+2024-12-30 11:45:10,294 - INFO - Processing image: DSC_5040.JPG
+2024-12-30 11:45:25,841 - INFO - Processing image: DSC_5052.JPG
+2024-12-30 11:45:34,589 - INFO - Processing image: DSC_5068.JPG
+2024-12-30 11:45:50,072 - INFO - Processing image: DSC_5070.JPG
+2024-12-30 11:46:02,169 - INFO - Processing image: DSC_5074.JPG
+2024-12-30 11:46:18,410 - INFO - Processing image: DSC_5075.JPG
+2024-12-30 11:46:30,635 - INFO - Processing image: DSC_5099.JPG
+2024-12-30 11:46:43,034 - INFO - Processing image: DSC_5101.JPG
+2024-12-30 11:47:01,923 - INFO - Processing image: DSC_5112.JPG
+2024-12-30 11:47:17,375 - INFO - Processing image: DSC_5117 - Copy.JPG
+2024-12-30 11:47:32,986 - INFO - Processing image: DSC_5117.JPG
+2024-12-30 11:47:48,453 - INFO - Processing image: DSC_5213.JPG
+2024-12-30 11:48:10,733 - INFO - Processing image: DSC_5216 - Copy.JPG
+2024-12-30 11:48:46,976 - INFO - Processing image: DSC_5216.JPG
+2024-12-30 11:49:25,397 - INFO - Processing image: DSC_5233.JPG
+2024-12-30 11:49:37,838 - INFO - Processing image: DSC_5238.JPG
+2024-12-30 11:50:10,732 - INFO - Processing image: DSC_5239.JPG
+2024-12-30 11:51:04,872 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 11:51:16,943 - INFO - Processing image: DSC_5290.JPG
+2024-12-30 11:51:31,472 - INFO - Processing image: DSC_5298.JPG
+2024-12-30 11:51:52,714 - INFO - Processing image: DSC_5300.JPG
+2024-12-30 11:52:20,319 - INFO - Processing image: DSC_5301.JPG
+2024-12-30 11:52:50,793 - INFO - Processing image: DSC_5325.JPG
+2024-12-30 11:53:17,160 - INFO - Processing image: DSC_5362.JPG
+2024-12-30 11:54:38,344 - INFO - Processing image: DSC_5407.JPG
+2024-12-30 11:54:45,251 - INFO - Processing image: DSC_5408.JPG
+2024-12-30 11:55:03,810 - INFO - Processing image: DSC_5524.JPG
+2024-12-30 11:55:13,977 - INFO - Processing image: DSC_5559.JPG
+2024-12-30 11:55:34,736 - INFO - Processing image: DSC_5593.JPG
+2024-12-30 11:55:58,188 - INFO - Processing image: DSC_5656.JPG
+2024-12-30 11:56:09,265 - INFO - Processing image: DSC_5658.JPG
+2024-12-30 11:56:18,965 - INFO - Processing image: DSC_5661.JPG
+2024-12-30 11:56:24,763 - INFO - Processing image: DSC_5687.JPG
+2024-12-30 11:56:34,882 - INFO - Processing image: DSC_5698.JPG
+2024-12-30 11:56:40,716 - INFO - Processing image: DSC_5700.JPG
+2024-12-30 11:56:46,823 - INFO - Processing image: DSC_5746.JPG
+2024-12-30 11:57:00,141 - INFO - Processing image: DSC_5755.JPG
+2024-12-30 11:57:16,827 - INFO - Processing image: DSC_5757.JPG
+2024-12-30 11:57:30,491 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 11:58:04,693 - INFO - Processing completed for event: 5
+2024-12-30 13:08:00,139 - INFO - Processing images for event_id: 6, Total images: 2
+2024-12-30 13:08:00,151 - INFO - Processing image: DSC_5052.JPG
+2024-12-30 13:08:09,782 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 13:08:19,335 - INFO - Processing completed for event_id: 6
+2024-12-30 13:09:40,476 - INFO - Processing images for event_id: 6, Total images: 2
+2024-12-30 13:09:40,482 - INFO - Processing image: DSC_5052.JPG
+2024-12-30 13:09:49,419 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 13:09:58,217 - INFO - Processing completed for event_id: 6
+2024-12-30 13:54:39,769 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-30 13:54:39,774 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 13:54:49,831 - INFO - Processing image: DSC_5300.JPG
+2024-12-30 13:55:00,337 - INFO - Processing image: DSC_5700.JPG
+2024-12-30 13:55:06,587 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 13:55:46,687 - INFO - Processing completed for event_id: 1
+2024-12-30 13:58:07,717 - INFO - Processing images for event_id: 1, Total images: 4
+2024-12-30 13:58:07,725 - INFO - Processing image: DSC_4954.JPG
+2024-12-30 13:58:14,870 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 13:58:24,722 - INFO - Processing image: DSC_5290.JPG
+2024-12-30 13:58:34,355 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 13:59:11,561 - INFO - Processing completed for event: 1
+2024-12-30 14:18:11,827 - INFO - Processing images for event_id: 1, Total images: 2
+2024-12-30 14:18:11,831 - INFO - Processing image: DSC_5656.JPG
+2024-12-30 14:18:21,586 - INFO - Processing image: DSC_5658.JPG
+2024-12-30 14:18:31,067 - INFO - Processing completed for event: 1
+2024-12-30 15:07:18,950 - INFO - Processing images for event_id: 2, Total images: 6
+2024-12-30 15:07:18,954 - INFO - Processing image: DSC_5238.JPG
+2024-12-30 15:07:53,420 - INFO - Processing image: DSC_5252.JPG
+2024-12-30 15:08:02,109 - INFO - Processing image: DSC_5298.JPG
+2024-12-30 15:08:10,920 - INFO - Processing image: DSC_5301.JPG
+2024-12-30 15:08:27,574 - INFO - Processing image: DSC_5407.JPG
+2024-12-30 15:08:34,920 - INFO - Processing image: DSC_5781.JPG
+2024-12-30 15:09:19,271 - INFO - Processing completed for event: 2
+2024-12-30 15:54:59,257 - INFO - Processing images for event_id: 3, Total images: 1
+2024-12-30 15:54:59,261 - INFO - Processing image: 1000077150.jpg
+2024-12-30 15:55:06,050 - INFO - Processing completed for event: 3
+2024-12-30 15:56:55,196 - INFO - Processing images for event_id: 4, Total images: 2
+2024-12-30 15:56:55,201 - INFO - Processing image: SA_S1586.jpg
+2024-12-30 15:59:00,498 - INFO - Processing image: SA_S1593.jpg
+2024-12-30 16:00:51,793 - INFO - Processing completed for event: 4
+2024-12-30 16:01:11,354 - INFO - Processing images for event_id: 5, Total images: 1
+2024-12-30 16:01:11,355 - INFO - Processing image: IMG_4707.JPG
+2024-12-30 16:01:19,428 - INFO - Processing completed for event: 5
+2024-12-30 16:33:43,207 - INFO - Processing images for event_id: 6, Total images: 1
+2024-12-30 16:33:43,211 - INFO - Processing image: IMG_4707.JPG
+2024-12-30 16:33:51,083 - INFO - Processing completed for event: 6
+2024-12-30 16:35:48,934 - INFO - Processing images for event_id: 7, Total images: 1
+2024-12-30 16:35:48,938 - INFO - Processing image: Nitin_Image3.jpg
+2024-12-30 16:35:57,057 - INFO - Processing completed for event: 7
+2024-12-30 16:42:25,243 - INFO - Processing images for event_id: 8, Total images: 1
+2024-12-30 16:42:25,246 - INFO - Processing image: IMG_4707.JPG
+2024-12-30 16:42:32,966 - INFO - Processing completed for event: 8
+2024-12-30 16:53:43,229 - INFO - Processing images for event_id: 9, Total images: 1
+2024-12-30 16:53:43,237 - INFO - Processing image: DSC_5112.JPG
+2024-12-30 16:54:04,733 - INFO - Processing completed for event: 9
+2024-12-30 16:55:57,431 - INFO - Processing images for event_id: 10, Total images: 1
+2024-12-30 16:55:57,434 - INFO - Processing image: DSC_5052.JPG
+2024-12-30 16:56:08,883 - INFO - Processing completed for event: 10
+2024-12-30 17:01:15,871 - INFO - Processing images for event_id: 11, Total images: 1
+2024-12-30 17:01:15,873 - INFO - Processing image: WhatsApp Image 2024-11-25 at 17.19.26.jpeg
+2024-12-30 17:01:21,512 - INFO - Processing completed for event: 11
+2024-12-30 17:31:31,858 - INFO - Processing images for event_id: 12, Total images: 1
+2024-12-30 17:31:31,860 - INFO - Processing image: IMG_4526.JPG
+2024-12-30 17:31:32,594 - INFO - Processing completed for event: 12
+2024-12-30 17:33:17,648 - INFO - Processing images for event_id: 13, Total images: 11
+2024-12-30 17:33:17,651 - INFO - Processing image: IMG_4526.JPG
+2024-12-30 17:33:18,330 - INFO - Processing image: IMG_4548.JPG
+2024-12-30 17:33:18,997 - INFO - Processing image: IMG_4549.JPG
+2024-12-30 17:33:23,139 - INFO - Processing image: IMG_4550.JPG
+2024-12-30 17:33:27,226 - INFO - Processing image: IMG_4551.JPG
+2024-12-30 17:33:35,164 - INFO - Processing image: IMG_4552.JPG
+2024-12-30 17:33:36,011 - INFO - Processing image: IMG_4553.JPG
+2024-12-30 17:33:40,807 - INFO - Processing image: IMG_4554.JPG
+2024-12-30 17:33:45,008 - INFO - Processing image: IMG_4555.JPG
+2024-12-30 17:33:45,653 - INFO - Processing image: IMG_4556.JPG
+2024-12-30 17:33:49,782 - INFO - Processing image: IMG_4557.JPG
+2024-12-30 17:33:50,416 - INFO - Processing completed for event: 13
+2024-12-30 17:42:45,751 - INFO - Processing images for event_id: 14, Total images: 65
+2024-12-30 17:42:45,754 - INFO - Processing image: IMG_4558.JPG
+2024-12-30 17:42:46,469 - INFO - Processing image: IMG_4559.JPG
+2024-12-30 17:42:54,246 - INFO - Processing image: IMG_4560.JPG
+2024-12-30 17:42:54,903 - INFO - Processing image: IMG_4561.JPG
+2024-12-30 17:42:59,005 - INFO - Processing image: IMG_4562.JPG
+2024-12-30 17:43:03,103 - INFO - Processing image: IMG_4563.JPG
+2024-12-30 17:43:07,169 - INFO - Processing image: IMG_4564.JPG
+2024-12-30 17:43:07,826 - INFO - Processing image: IMG_4565.JPG
+2024-12-30 17:43:08,512 - INFO - Processing image: IMG_4566.JPG
+2024-12-30 17:43:09,163 - INFO - Processing image: IMG_4567.JPG
+2024-12-30 17:43:13,373 - INFO - Processing image: IMG_4568.JPG
+2024-12-30 17:43:14,018 - INFO - Processing image: IMG_4569.JPG
+2024-12-30 17:43:14,717 - INFO - Processing image: IMG_4570.JPG
+2024-12-30 17:43:23,566 - INFO - Processing image: IMG_4571.JPG
+2024-12-30 17:43:33,078 - INFO - Processing image: IMG_4572.JPG
+2024-12-30 17:43:33,714 - INFO - Processing image: IMG_4573.JPG
+2024-12-30 17:43:42,088 - INFO - Processing image: IMG_4574.JPG
+2024-12-30 17:43:46,238 - INFO - Processing image: IMG_4575.JPG
+2024-12-30 17:43:46,881 - INFO - Processing image: IMG_4576.JPG
+2024-12-30 17:43:47,537 - INFO - Processing image: IMG_4577.JPG
+2024-12-30 17:43:48,207 - INFO - Processing image: IMG_4578.JPG
+2024-12-30 17:43:52,366 - INFO - Processing image: IMG_4579.JPG
+2024-12-30 17:43:56,443 - INFO - Processing image: IMG_4580.JPG
+2024-12-30 17:44:00,733 - INFO - Processing image: IMG_4581.JPG
+2024-12-30 17:44:01,479 - INFO - Processing image: IMG_4582.JPG
+2024-12-30 17:44:02,378 - INFO - Processing image: IMG_4583.JPG
+2024-12-30 17:44:03,366 - INFO - Processing image: IMG_4584.JPG
+2024-12-30 17:44:08,483 - INFO - Processing image: IMG_4585.JPG
+2024-12-30 17:44:13,086 - INFO - Processing image: IMG_4586.JPG
+2024-12-30 17:44:17,340 - INFO - Processing image: IMG_4587.JPG
+2024-12-30 17:44:18,188 - INFO - Processing image: IMG_4588.JPG
+2024-12-30 17:44:22,527 - INFO - Processing image: IMG_4589.JPG
+2024-12-30 17:44:26,797 - INFO - Processing image: IMG_4590.JPG
+2024-12-30 17:44:34,732 - INFO - Processing image: IMG_4591.JPG
+2024-12-30 17:44:47,637 - INFO - Processing image: IMG_4592.JPG
+2024-12-30 17:44:55,414 - INFO - Processing image: IMG_4593.JPG
+2024-12-30 17:45:06,504 - INFO - Processing image: IMG_4594.JPG
+2024-12-30 17:45:14,034 - INFO - Processing image: IMG_4595.JPG
+2024-12-30 17:45:21,693 - INFO - Processing image: IMG_4596.JPG
+2024-12-30 17:45:29,448 - INFO - Processing image: IMG_4597.JPG
+2024-12-30 17:45:37,907 - INFO - Processing image: IMG_4598.JPG
+2024-12-30 17:45:38,603 - INFO - Processing image: IMG_4599.JPG
+2024-12-30 17:45:47,287 - INFO - Processing image: IMG_4600.JPG
+2024-12-30 17:45:47,978 - INFO - Processing image: IMG_4601.JPG
+2024-12-30 17:45:55,825 - INFO - Processing image: IMG_4602.JPG
+2024-12-30 17:45:56,463 - INFO - Processing image: IMG_4603.JPG
+2024-12-30 17:45:57,146 - INFO - Processing image: IMG_4604.JPG
+2024-12-30 17:45:57,819 - INFO - Processing image: IMG_4605.JPG
+2024-12-30 17:45:58,496 - INFO - Processing image: IMG_4606.JPG
+2024-12-30 17:45:59,176 - INFO - Processing image: IMG_4607.JPG
+2024-12-30 17:45:59,876 - INFO - Processing image: IMG_4608.JPG
+2024-12-30 17:46:04,799 - INFO - Processing image: IMG_4609.JPG
+2024-12-30 17:46:09,327 - INFO - Processing image: IMG_4610.JPG
+2024-12-30 17:46:13,963 - INFO - Processing image: IMG_4611.JPG
+2024-12-30 17:46:18,320 - INFO - Processing image: IMG_4612.JPG
+2024-12-30 17:46:22,430 - INFO - Processing image: IMG_4613.JPG
+2024-12-30 17:46:26,517 - INFO - Processing image: IMG_4614.JPG
+2024-12-30 17:46:30,631 - INFO - Processing image: IMG_4615.JPG
+2024-12-30 17:46:34,913 - INFO - Processing image: IMG_4616.JPG
+2024-12-30 17:46:42,871 - INFO - Processing image: IMG_4617.JPG
+2024-12-30 17:46:43,597 - INFO - Processing image: IMG_4618.JPG
+2024-12-30 17:46:47,982 - INFO - Processing image: IMG_4619.JPG
+2024-12-30 17:46:48,640 - INFO - Processing image: IMG_4620.JPG
+2024-12-30 17:46:52,773 - INFO - Processing image: IMG_4621.JPG
+2024-12-30 17:47:00,345 - INFO - Processing image: IMG_4622.JPG
+2024-12-30 17:47:13,120 - INFO - Processing completed for event: 14
