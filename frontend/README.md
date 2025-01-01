@@ -8,14 +8,10 @@ This is a Flask-based web application for face recognition. Users can upload or 
 1. [Features](#features)
 2. [Technologies Used](#technologies-used)
 3. [Setup Requirements](#setup-requirements)
-4. [Installation Steps](#installation-steps)
+4. [Model Installation Steps](#model-installation-steps)
 5. [How to Run the Application](#how-to-run-the-application)
-6. [Using HTTPS with Ngrok](#using-https-with-ngrok)
-7. [Folder Structure](#folder-structure)
-8. [Screenshots](#screenshots)
-9. [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
-11. [License](#license)
+6. [Usage](#usage)
+7. [Contributing](#contributing)
 
 ---
 
@@ -40,14 +36,19 @@ This is a Flask-based web application for face recognition. Users can upload or 
 1. Python 3.7+
 2. Virtual environment (`venv`)
 3. Ngrok (for HTTPS)
-4. Dlib and OpenCV installed
-5. Shape predictor and face recognition models:
-   - `shape_predictor_68_face_landmarks.dat`
-   - `dlib_face_recognition_resnet_model_v1.dat`
+4. Retinface and Facenet Installed
 
 ---
 
-## Setup Instructions
+## Model Installation
+1. pip install retina-face
+2. from retinaface import RetinaFace (in faceGrouper.py and Imagefinder.py files)
+3. pip install facenet-pytorch
+4. from facenet_pytorch import InceptionResnetV1(in faceGrouper.py and Imagefinder.py files)
+
+---
+
+## How to Run the Application
 
 1. Clone the repository:
    ```
