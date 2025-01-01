@@ -1,5 +1,3 @@
-# README.md content
-
 # Face Recognition Web Application
 
 This is a Flask-based web application for face recognition. Users can upload or capture photos to find matched faces from a dataset. The app also provides options to download all matched photos as a zip file.
@@ -8,14 +6,10 @@ This is a Flask-based web application for face recognition. Users can upload or 
 1. [Features](#features)
 2. [Technologies Used](#technologies-used)
 3. [Setup Requirements](#setup-requirements)
-4. [Installation Steps](#installation-steps)
+4. [Model Installation Steps](#model-installation-steps)
 5. [How to Run the Application](#how-to-run-the-application)
-6. [Using HTTPS with Ngrok](#using-https-with-ngrok)
-7. [Folder Structure](#folder-structure)
-8. [Screenshots](#screenshots)
-9. [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
-11. [License](#license)
+6. [Usage](#usage)
+7. [Contributing](#contributing)
 
 ---
 
@@ -40,14 +34,20 @@ This is a Flask-based web application for face recognition. Users can upload or 
 1. Python 3.7+
 2. Virtual environment (`venv`)
 3. Ngrok (for HTTPS)
-4. Dlib and OpenCV installed
-5. Shape predictor and face recognition models:
-   - `shape_predictor_68_face_landmarks.dat`
-   - `dlib_face_recognition_resnet_model_v1.dat`
+4. Retinface and Facenet Installed
 
 ---
 
-## Setup Instructions
+## Model Installation
+1.For Downlaoding Resnet model, go to the given repo link "https://github.com/ageitgey/face_recognition_models/blob/master/face_recognition_models/models/dlib_face_recognition_resnet_model_v1.dat"
+2. Tap on "View raw" or Downlaod button.
+3. For Downloading shape_predictor dlib model, go to the given repo link
+"https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat"
+4. Tap on "View raw" or Download button.
+
+---
+
+## How to Run the Application
 
 1. Clone the repository:
    ```
@@ -69,7 +69,14 @@ This is a Flask-based web application for face recognition. Users can upload or 
 
 ## Usage
 
-- Upload an image or use the camera to capture an image.
+- Launch the application
+- Upload all event images at once
+- tap on Generate Button after Successfull Upload
+- Then copy the generated link
+- open in new tab/device/window
+- provide the permissions
+- take a selfie/picture
+- tap on find my photos
 - The application will process the image and perform face detection and recognition.
 
 ## Contributing
