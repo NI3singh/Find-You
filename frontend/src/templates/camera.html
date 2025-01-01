@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Photos</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/camera.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Find Your Photos</h1>
+            <p>Take a selfie to find your photos from the event</p>
+        </header>
+
+        <main>
+            <div id="consent-section">
+                <h2>Privacy Notice</h2>
+                <p>This application uses facial recognition to find your photos. Your selfie will only be used for this purpose and will not be stored.</p>
+                <button id="accept-btn">I Understand & Accept</button>
+            </div>
+
+            <div id="camera-section" hidden>
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" hidden></canvas>
+                    <div class="camera-controls">
+                        <button id="capture-btn" disabled>Take Photo</button>
+                        <button id="retake-btn" hidden>Retake</button>
+                    </div>
+                </div>
+                <div id="preview-section" hidden>
+                    <img id="captured-image" alt="Captured photo">
+                    <button id="find-photos-btn">Find My Photos</button>
+                </div>
+            </div>
+
+            <div id="loading-section" hidden>
+                <div class="loader"></div>
+                <p>Searching for your photos...</p>
+            </div>
+        </main>
+    </div>
+    <script src="/static/js/camera.js"></script>
+</body>
+</html>

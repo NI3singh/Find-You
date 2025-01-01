@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Photo Upload</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Event Photo Gallery</h1>
+            <p>Upload your event photos and share them with attendees</p>
+        </header>
+
+        <main>
+            <section id="upload-section">
+                <h2>Upload Event Photos</h2>
+                <form id="upload-form">
+                    <div class="drag-drop-area" id="drag-drop-area">
+                        <p>Drag and drop photos here or</p>
+                        <input type="file" id="file-input" multiple accept="image/*" hidden>
+                        <button type="button" id="select-files-btn">Select Files</button>
+                    </div>
+                    
+                    <div id="preview-container" class="preview-container"></div>
+                    <div class="upload-progress" hidden>
+                        <progress id="upload-progress-bar" value="0" max="100"></progress>
+                        <span id="upload-status"></span>
+                    </div>
+                    
+                    <button type="submit" id="upload-btn" disabled>Upload Photos</button>
+                </form>
+            </section>
+            
+            <!-- Modal for Event Name -->
+            <div id="eventModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" id="closeModal">&times;</span>
+                    <h2>Enter Event Name</h2>
+                    <input type="text" id="eventNameInput" placeholder="Enter event name here" />
+                    <div class="modal-buttons">
+                        <button id="cancelButton">Cancel</button>
+                        <button id="confirmButton">Confirm</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Generate Button Section -->
+            <section id="generate-section" style="text-align: center; margin-top: 20px;">
+                <button id="generate-btn" disabled style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: not-allowed;">
+                    Generate
+                </button>
+            </section>
+            <div id="loader" style="display: none; text-align: center; margin-top: 20px;">
+                <p>Processing, please wait...</p>
+            </div>            
+            <section id="share-section" hidden>
+                <h2>Share With Attendees</h2>
+                <div class="share-link-container">
+                    <input type="text" id="share-link" readonly>
+                    <button id="copy-link-btn">Copy Link</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
