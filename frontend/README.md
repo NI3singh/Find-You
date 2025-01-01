@@ -70,7 +70,14 @@ This is a Flask-based web application for face recognition. Users can upload or 
 
 ## Usage
 
-- Upload an image or use the camera to capture an image.
+- Launch the application
+- Upload all event images at once
+- tap on Generate Button after Successfull Upload
+- Then copy the generated link
+- open in new tab/device/window
+- provide the permissions
+- take a selfie/picture
+- tap on find my photos
 - The application will process the image and perform face detection and recognition.
 
 ## Contributing
