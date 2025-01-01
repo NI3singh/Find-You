@@ -40,9 +40,12 @@ This is a Flask-based web application for face recognition. Users can upload or 
 
 ## Model Installation
 1.For Downlaoding Resnet model, go to the given repo link "https://github.com/ageitgey/face_recognition_models/blob/master/face_recognition_models/models/dlib_face_recognition_resnet_model_v1.dat"
+
 2. Tap on "View raw" or Downlaod button.
+   
 3. For Downloading shape_predictor dlib model, go to the given repo link
 "https://github.com/italojs/facial-landmarks-recognition/blob/master/shape_predictor_68_face_landmarks.dat"
+
 4. Tap on "View raw" or Download button.
 
 ---
