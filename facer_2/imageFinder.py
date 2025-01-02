@@ -43,7 +43,7 @@ def get_face_features(image, face_box):
     face_features = facenet(torch.from_numpy(face)).detach().numpy()
     return face_features.flatten()
 
-def find_matching_images(features, cursor, tolerance=0.8):
+def find_matching_images(features, cursor, tolerance=0.6):
     """
     Find all images in the database that match the given facial features.
 

@@ -140,21 +140,37 @@ def check_event_name():
 @app.route('/api/find_photos', methods=['POST'])
 def find_photos():
     try:
-        data = request.json
-        image_data = data.get('image')  # Base64-encoded selfie image
-        event_id = data.get('event_id')  # Current event ID
+        if 'multipart/form-data' in request.content_type:
+            image_file = request.files.get('image')
+            event_id = request.form.get('event_id')
 
-        if not image_data or not event_id:
-            return jsonify({"error": "Missing image data or event_id"}), 400
+            if not image_file or not event_id:
+                return jsonify({"error": "Missing image file or event_id"}), 400
 
-        # Save the selfie temporarily
-        temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.jpg')
-        with open(temp_image_path, 'wb') as temp_image:
-            temp_image.write(base64.b64decode(image_data))
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], image_file.filename)
+            image_file.save(temp_image_path)
 
-        # Process the selfie using imageFinder.py
+        elif 'application/json' in request.content_type:
+            data = request.json
+            image_data = data.get('image')
+            event_id = data.get('event_id')
+
+            if not image_data or not event_id:
+                return jsonify({"error": "Missing image data or event_id"}), 400
+
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.jpg')
+            with open(temp_image_path, 'wb') as temp_image:
+                temp_image.write(base64.b64decode(image_data))
+
+        else:
+            return jsonify({"error": "Unsupported Content-Type. Use 'multipart/form-data' or 'application/json'"}), 415
+
         from facer_2.imageFinder import process_input_image
         db_path = f"facial_features_{event_id}.db"
+
+        if not os.path.exists(db_path):
+            return jsonify({"error": f"Database for event_id {event_id} not found"}), 404
+
         matching_images = process_input_image(temp_image_path, db_path, event_id)
 
         if not matching_images:
@@ -166,6 +182,7 @@ def find_photos():
     except Exception as e:
         print("Error in find_photos:", e)
         return jsonify({"error": "Failed to process the request. Check server logs for details."}), 500
+
 
 @app.route('/api/result/<event_id>', methods=['GET'])
 def get_event_result(event_id):
