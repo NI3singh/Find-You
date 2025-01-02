@@ -54,6 +54,14 @@ This is a Flask-based web application for face recognition. Users can upload or 
    git clone <repository-url>
    cd frontend
    ```
+2. Install the required dependencies:
+   ```
+   pip install retina-face
+   ```
+2. Install the required dependencies:
+   ```
+   pip install facenet-pytorch
+   ```
 
 2. Install the required dependencies:
    ```
