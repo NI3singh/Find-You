@@ -1,5 +1,3 @@
-
-
 import logging
 import os
 import cv2
@@ -114,19 +112,32 @@ def process_image(cursor, conn, image_path):
 
     return new_faces
 
-def process_images_from_folder(image_folder, db_name="facial_features.db"):
+def process_images_from_event(event_id, db_name="events_data.db", output_db_prefix="facial_features"):
     """
-    Process images from a local folder and store facial features in a database.
+    Process images from an event stored in the database and save facial features to a new database.
 
     Args:
-        image_folder (str): Path to the folder containing the images.
-        db_name (str): Name of the SQLite database to store facial features.
+        event_id (int): Event ID to fetch images for.
+        db_name (str): Name of the SQLite database storing events.
+        output_db_prefix (str): Prefix for the output SQLite database name.
     """
-    # Connect to the database
-    conn = sqlite3.connect(db_name)
-    cursor = conn.cursor()
+    # Connect to the events database
+    event_conn = sqlite3.connect(db_name)
+    event_cursor = event_conn.cursor()
 
-    # Create the Faces table if it doesn't exist
+    # Fetch image data for the given event_id
+    event_cursor.execute('SELECT image_name, image_data FROM events WHERE event_id = ?', (event_id,))
+    images = event_cursor.fetchall()
+
+    if not images:
+        logging.info(f"No images found for event_id: {event_id}")
+        print(f"No images found for event_id: {event_id}")
+        return
+
+    # Create a new database for storing facial features
+    output_db_name = f"{output_db_prefix}_{event_id}.db"
+    conn = sqlite3.connect(output_db_name)
+    cursor = conn.cursor()
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS Faces (
         id INTEGER PRIMARY KEY,
@@ -136,30 +147,32 @@ def process_images_from_folder(image_folder, db_name="facial_features.db"):
     ''')
     conn.commit()
 
-    # Get list of images in the folder
-    images = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith(('.jpg', '.jpeg', '.png','.JPG'))]
+    logging.info(f"Processing images for event_id: {event_id}, Total images: {len(images)}")
+    print(f"Processing images for event_id: {event_id}, Total images: {len(images)}")
 
-    if not images:
-        logging.info(f"No images found in folder: {image_folder}")
-        print(f"No images found in folder: {image_folder}")
-        return
-
-    logging.info(f"Processing images from folder: {image_folder}, Total images: {len(images)}")
-    print(f"Processing images from folder: {image_folder}, Total images: {len(images)}")
-
-    for image_path in images:
-        logging.info(f"Processing image: {image_path}")
+    for image_name, image_data in images:
+        image_path = os.path.join("temp", image_name)
+        os.makedirs("temp", exist_ok=True)
+        with open(image_path, 'wb') as f:
+            f.write(image_data)
+        logging.info(f"Processing image: {image_name}")
         process_image(cursor, conn, image_path)
+        os.remove(image_path)  # Remove temporary file after processing
 
+    event_conn.close()
     conn.close()
-    logging.info(f"Processing completed for folder: {image_folder}")
-    print(f"Processing completed for folder: {image_folder}")
+    logging.info(f"Processing completed for event_id: {event_id}")
+    print(f"Processing completed for event_id: {event_id}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Error: Image folder path is required as a command-line argument.")
+        print("Error: Event ID is required as a command-line argument.")
         sys.exit(1)
 
-    image_folder = sys.argv[1]
-    print(f"Processing images from folder: {image_folder}")
-    process_images_from_folder(image_folder)
+    try:
+        event_id = int(sys.argv[1])
+        print(f"Processing event_id: {event_id}")
+        process_images_from_event(event_id)
+    except ValueError:
+        print("Error: Invalid event ID. It must be an integer.")
+        sys.exit(1)

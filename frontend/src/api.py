@@ -19,9 +19,6 @@ imagefinder_path = os.getenv('imagefinder_path')
 event_database_path = os.getenv('event_database_path')
 selfie_temp_path = os.getenv('selfie_temp_path')
 
-print(facegrouper_path)
-print(event_database_path)
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 
@@ -44,6 +41,8 @@ def generate_faces():
 
     try:
         # Run facegrouper.py processing in the background
+        
+        facegrouper_path = r"C:\Users\itsni\Desktop\frs\facer_2\faceGrouper.py"
         if not os.path.exists(facegrouper_path):
             return jsonify({"error": "faceGrouper.py not found at the specified path"}), 500
 
