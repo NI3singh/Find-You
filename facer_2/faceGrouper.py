@@ -7,13 +7,37 @@ import numpy as np
 import sqlite3
 import sys
 
+try:
+    # Get event_id from command-line arguments
+    if len(sys.argv) < 2:
+        raise ValueError("Missing event_id argument")
+
+    event_id = sys.argv[1]
+except:
+    pass
+
+#importing path from .env
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+facegrouper_path = os.getenv('facegrouper_path')
+imagefinder_path = os.getenv('imagefinder_path')
+face_recognition_resnet_path = os.getenv('face_recognition_resnet_path')
+predictor_face_landmarks_path = os.getenv('face_landmarks_path')
+event_database_path = os.getenv('event_database_path')
+selfie_temp_path = os.getenv('selfie_temp_path')
+
 # Load the detector and facial landmark predictor
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(r'C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\shape_predictor_68_face_landmarks.dat')
-face_rec_model = dlib.face_recognition_model_v1(r'C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\dlib_face_recognition_resnet_model_v1.dat')
+predictor = dlib.shape_predictor(predictor_face_landmarks_path)
+face_rec_model = dlib.face_recognition_model_v1(face_recognition_resnet_path)
 
 # Initialize SQLite database for facial features
-conn = sqlite3.connect('facial_features.db')
+db_name = f"facial_features_{event_id}.db"
+conn = sqlite3.connect(db_name)
+# conn = sqlite3.connect('facial_features_{event_id}.db')
 cursor = conn.cursor()
 
 # Create table for storing facial features and image paths
@@ -89,7 +113,7 @@ def process_image(image_path):
 
 def process_event_images(event_id):
     """Fetch and process images for a specific event from events_data.db."""
-    event_db_path = r'C:\Users\itsni\Desktop\FRS_ELaunch\frontend\src\events_data.db'
+    event_db_path = event_database_path
     event_conn = sqlite3.connect(event_db_path)
     event_cursor = event_conn.cursor()
 
@@ -106,7 +130,7 @@ def process_event_images(event_id):
     print(f"Processing images for event_id: {event_id}")
 
     for image_name, image_data in images:
-        image_path = os.path.join(r'C:\Users\itsni\Desktop\FRS_ELaunch\frontend\src\temp', image_name)  # Temporarily save the image
+        image_path = os.path.join(selfie_temp_path, image_name)  # Temporarily save the image
         with open(image_path, 'wb') as f:
             f.write(image_data)
         logging.info(f"Processing image: {image_name}")

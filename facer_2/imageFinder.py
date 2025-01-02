@@ -212,11 +212,22 @@ import dlib
 import numpy as np
 import sqlite3
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+facegrouper_path = os.getenv('facegrouper_path')
+imagefinder_path = os.getenv('imagefinder_path')
+face_recognition_resnet_path = os.getenv('face_recognition_resnet_path')
+predictor_face_landmarks_path = os.getenv('face_landmarks_path')
+event_database_path = os.getenv('event_database_path')
+selfie_temp_path = os.getenv('selfie_temp_path')
 
 # Load the detector and facial landmark predictor
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(r'C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\shape_predictor_68_face_landmarks.dat')
-face_rec_model = dlib.face_recognition_model_v1(r'C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\dlib_face_recognition_resnet_model_v1.dat')
+predictor = dlib.shape_predictor(predictor_face_landmarks_path)
+face_rec_model = dlib.face_recognition_model_v1(face_recognition_resnet_path)
 
 def get_face_features(image, face_rect):
     """Extract the 128D facial features from a face rectangle."""

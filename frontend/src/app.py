@@ -15,7 +15,7 @@ app = Flask(__name__,
 app.config.update(
     SECRET_KEY=os.urandom(24),
     MAX_CONTENT_LENGTH=3000 * 1024 * 1024,
-    MAX_CONTENT_LENGTH_PER_FILE=50 * 1024 * 1024,  # 50MB per file
+    MAX_CONTENT_LENGTH_PER_FILE=100 * 1024 * 1024,  # 50MB per file
     ALLOWED_EXTENSIONS={'png', 'jpg', 'jpeg','JPG','.heic'},
     FACE_RECOGNITION_THRESHOLD=0.5,
     TEMPORARY_FOLDER='temp'
@@ -35,5 +35,5 @@ from routes import *
 from api import *
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8080)
 

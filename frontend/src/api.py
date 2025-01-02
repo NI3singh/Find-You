@@ -9,6 +9,17 @@ import cv2
 from flask import send_file
 import zipfile
 from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+facegrouper_path = os.getenv('facegrouper_path')
+imagefinder_path = os.getenv('imagefinder_path')
+face_recognition_resnet_path = os.getenv('face_recognition_resnet_path')
+predictor_face_landmarks_path = os.getenv('face_landmarks_path')
+event_database_path = os.getenv('event_database_path')
+selfie_temp_path = os.getenv('selfie_temp_path')
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
@@ -35,8 +46,8 @@ def generate_faces():
     try:
         # Run facegrouper.py processing in the background
         
-        subprocess.Popen(["python", r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py", str(event_id)])
-        # os.system(r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py {event_id} &")
+        subprocess.Popen(["python", "/Users/apple/cjs/frs/facer_2/faceGrouper.py", str(event_id)])
+        # os.system(f"{facegrouper_path} {event_id} &")
         return jsonify({
             "message": f"Face processing started for event_id: {event_id}",
             "event_id": event_id,
