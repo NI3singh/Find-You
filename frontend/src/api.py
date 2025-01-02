@@ -9,11 +9,21 @@ import cv2
 from flask import send_file
 import zipfile
 from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+facegrouper_path = os.getenv('facegrouper_path')
+imagefinder_path = os.getenv('imagefinder_path')
+event_database_path = os.getenv('event_database_path')
+selfie_temp_path = os.getenv('selfie_temp_path')
+
+print(facegrouper_path)
+print(event_database_path)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-
-from facer_2.imageFinder import process_input_image
 
 @app.route('/api/generate_faces', methods=['POST'])
 def generate_faces():
@@ -34,9 +44,15 @@ def generate_faces():
 
     try:
         # Run facegrouper.py processing in the background
+        if not os.path.exists(facegrouper_path):
+            return jsonify({"error": "faceGrouper.py not found at the specified path"}), 500
+
+        # Use the same Python executable running the Flask app
+        python_executable = sys.executable
+
+        # Call the subprocess
+        subprocess.Popen([python_executable, facegrouper_path, str(event_id)])
         
-        subprocess.Popen(["python", r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py", str(event_id)])
-        # os.system(r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py {event_id} &")
         return jsonify({
             "message": f"Face processing started for event_id: {event_id}",
             "event_id": event_id,
