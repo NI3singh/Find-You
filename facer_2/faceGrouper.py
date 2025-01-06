@@ -38,7 +38,7 @@ def get_face_features(image, face_box):
     face_features = facenet(torch.from_numpy(face)).detach().numpy()
     return face_features.flatten()
 
-def match_face(cursor, features, tolerance=0.8):
+def match_face(cursor, features, tolerance=0.6):
     """
     Check if the face features match any in the database.
 

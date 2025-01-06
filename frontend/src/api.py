@@ -42,7 +42,7 @@ def generate_faces():
     try:
         # Run facegrouper.py processing in the background
         
-        facegrouper_path = r"C:\Users\itsni\Desktop\frs\facer_2\faceGrouper.py"
+        # facegrouper_path = facegrouper_path
         if not os.path.exists(facegrouper_path):
             return jsonify({"error": "faceGrouper.py not found at the specified path"}), 500
 

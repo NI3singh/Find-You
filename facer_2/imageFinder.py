@@ -43,7 +43,7 @@ def get_face_features(image, face_box):
     face_features = facenet(torch.from_numpy(face)).detach().numpy()
     return face_features.flatten()
 
-def find_matching_images(features, cursor, tolerance=0.6):
+def find_matching_images(features, cursor, tolerance=0.8):
     """
     Find all images in the database that match the given facial features.
 
@@ -67,6 +67,36 @@ def find_matching_images(features, cursor, tolerance=0.6):
 
     return matching_images
 
+# def save_matches_to_event_db(event_id, matched_image_paths):
+#     """
+#     Save the matched image paths to a database named 'Matched_Faces_event-id.db'.
+
+#     Args:
+#         event_id (int): The event ID for the matched images.
+#         matched_image_paths (list): List of matched image file paths.
+#     """
+#     db_name = f"Matched_Faces_event_{event_id}.db"
+#     conn = sqlite3.connect(db_name)
+#     cursor = conn.cursor()
+
+#     # Create the Matches table if it doesn't exist
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS Matches (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             image_name TEXT,
+#             image_path TEXT
+#         )
+#     ''')
+
+#     # Insert matched image paths and names into the database
+#     for image_path in matched_image_paths:
+#         image_name = os.path.basename(image_path)  # Extract the image file name from the path
+#         cursor.execute('INSERT INTO Matches (image_name, image_path) VALUES (?, ?)', (image_name, image_path))
+
+#     conn.commit()
+#     conn.close()
+#     print(f"Matched images saved to {db_name}")
+###########
 def save_matches_to_event_db(event_id, matched_image_paths):
     """
     Save the matched image paths to a database named 'Matched_Faces_event-id.db'.
@@ -79,9 +109,12 @@ def save_matches_to_event_db(event_id, matched_image_paths):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
-    # Create the Matches table if it doesn't exist
+    # Delete the Matches table if it exists
+    cursor.execute('DROP TABLE IF EXISTS Matches')
+
+    # Create a new Matches table
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS Matches (
+        CREATE TABLE Matches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             image_name TEXT,
             image_path TEXT
@@ -96,7 +129,7 @@ def save_matches_to_event_db(event_id, matched_image_paths):
     conn.commit()
     conn.close()
     print(f"Matched images saved to {db_name}")
-
+#############
 def process_input_image(image_path, db_path, event_id):
     """
     Process the input image to find all matching images in the specified database.
