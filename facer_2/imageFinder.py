@@ -43,7 +43,7 @@ def get_face_features(image, face_box):
     face_features = facenet(torch.from_numpy(face)).detach().numpy()
     return face_features.flatten()
 
-def find_matching_images(features, cursor, tolerance=0.6):
+def find_matching_images(features, cursor, tolerance):
     """
     Find all images in the database that match the given facial features.
 
@@ -67,13 +67,15 @@ def find_matching_images(features, cursor, tolerance=0.6):
 
     return matching_images
 
-def save_matches_to_event_db(event_id, matched_image_paths):
+def save_matches_to_event_db(event_id, matched_image_paths, mobile_number):
     """
-    Save the matched image paths to a database named 'Matched_Faces_event-id.db'.
+    Save the matched image paths to the database named 'Matched_Faces_event-id.db'.
+    Existing entries for the given mobile number are overwritten.
 
     Args:
         event_id (int): The event ID for the matched images.
         matched_image_paths (list): List of matched image file paths.
+        mobile_number (str): Mobile number associated with the matched images.
     """
     db_name = f"Matched_Faces_event_{event_id}.db"
     conn = sqlite3.connect(db_name)
@@ -84,20 +86,38 @@ def save_matches_to_event_db(event_id, matched_image_paths):
         CREATE TABLE IF NOT EXISTS Matches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             image_name TEXT,
-            image_path TEXT
+            image_path TEXT,
+            mobile_number TEXT
         )
     ''')
 
-    # Insert matched image paths and names into the database
+    # Delete existing entries for the given mobile number
+    print(f"Deleting previous matches for mobile number: {mobile_number}")
+    cursor.execute('DELETE FROM Matches WHERE mobile_number = ?', (mobile_number,))
+
+    # Verify deletion
+    conn.commit()
+    cursor.execute('SELECT * FROM Matches WHERE mobile_number = ?', (mobile_number,))
+    deleted_entries = cursor.fetchall()
+    if not deleted_entries:
+        print(f"Successfully deleted all previous entries for mobile number: {mobile_number}")
+    else:
+        print(f"Failed to delete some entries: {deleted_entries}")
+
+    # Insert new matched image paths and names into the database
+    print(f"Saving new matches for mobile number: {mobile_number}")
     for image_path in matched_image_paths:
         image_name = os.path.basename(image_path)  # Extract the image file name from the path
-        cursor.execute('INSERT INTO Matches (image_name, image_path) VALUES (?, ?)', (image_name, image_path))
+        cursor.execute('INSERT INTO Matches (image_name, image_path, mobile_number) VALUES (?, ?, ?)',
+                       (image_name, image_path, mobile_number))
 
     conn.commit()
     conn.close()
-    print(f"Matched images saved to {db_name}")
+    print(f"Matched images for mobile number {mobile_number} saved to {db_name}")
 
-def process_input_image(image_path, db_path, event_id):
+
+
+def process_input_image(temp_image_path, db_path, event_id, mobile_number, tolerance):
     """
     Process the input image to find all matching images in the specified database.
 
@@ -105,6 +125,7 @@ def process_input_image(image_path, db_path, event_id):
         image_path (str): Path to the input selfie image.
         db_path (str): Path to the facial features database for the event.
         event_id (int): Event ID for the current operation.
+        mobile_number (str): Mobile number associated with the matched images.
 
     Returns:
         list: List of matching image paths.
@@ -117,10 +138,12 @@ def process_input_image(image_path, db_path, event_id):
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
+        print(f"Tolerance value being used: {tolerance}")
+        
         # Read the input selfie image
-        image = cv2.imread(image_path)
+        image = cv2.imread(temp_image_path)
         if image is None:
-            print(f"Failed to load image: {image_path}")
+            print(f"Failed to load image: {temp_image_path}")
             return []
 
         # Convert BGR to RGB for RetinaFace
@@ -130,23 +153,24 @@ def process_input_image(image_path, db_path, event_id):
         faces = RetinaFace.detect_faces(rgb_image)
 
         if not faces:
-            print(f"No faces found in {image_path}")
+            print(f"No faces found in {temp_image_path}")
             return []
 
         all_matching_images = set()
         for face_id, face_data in faces.items():
             face_box = face_data['facial_area']
             features = get_face_features(rgb_image, face_box)
-            matching_images = find_matching_images(features, cursor)
+            matching_images = find_matching_images(features, cursor, tolerance)
             all_matching_images.update(matching_images)
 
         conn.close()
 
         # Save matched images to a new database
-        save_matches_to_event_db(event_id, list(all_matching_images))
+        save_matches_to_event_db(event_id, list(all_matching_images), mobile_number)
 
         return list(all_matching_images)
 
     except Exception as e:
         print(f"Error in process_input_image: {e}")
         return []
+
