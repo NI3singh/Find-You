@@ -140,27 +140,18 @@ def check_event_name():
 @app.route('/api/find_photos', methods=['POST'])
 def find_photos():
     try:
-<<<<<<< Updated upstream
-=======
         print("Processing find_photos API...")
         print(f"Content-Type: {request.content_type}")
 
         mobile_number = None
         tolerance = None
 
->>>>>>> Stashed changes
         if 'multipart/form-data' in request.content_type:
             event_id = request.form.get('event_id')
-<<<<<<< Updated upstream
-
-            if not image_file or not event_id:
-                return jsonify({"error": "Missing image file or event_id"}), 400
-=======
             mobile_number = request.form.get('mobile_number')
             tolerance = request.form.get('tolerance')
 
             print(f"Received multipart/form-data: event_id={event_id}, mobile_number={mobile_number}, tolerance={tolerance}")
->>>>>>> Stashed changes
 
             if not event_id or not mobile_number:
                 return jsonify({"error": "Missing event_id, or mobile_number"}), 400
@@ -171,16 +162,10 @@ def find_photos():
         elif 'application/json' in request.content_type:
             data = request.json
             event_id = data.get('event_id')
-<<<<<<< Updated upstream
-
-            if not image_data or not event_id:
-                return jsonify({"error": "Missing image data or event_id"}), 400
-=======
             mobile_number = data.get('mobile_number')
             tolerance = data.get('tolerance')
 
             print(f"Received JSON: event_id={event_id}, mobile_number={mobile_number}, tolerance={tolerance}")
->>>>>>> Stashed changes
 
             if not event_id or not mobile_number:
                 return jsonify({"error": "Missing event_id, or mobile_number"}), 400
@@ -204,12 +189,8 @@ def find_photos():
         if not os.path.exists(db_path):
             return jsonify({"error": f"Database for event_id {event_id} not found"}), 404
 
-<<<<<<< Updated upstream
-        matching_images = process_input_image(temp_image_path, db_path, event_id)
-=======
         matching_images = process_input_image(temp_image_path, db_path, event_id, mobile_number, tolerance)
         print(f"Matching images: {matching_images}")
->>>>>>> Stashed changes
 
         if not matching_images:
             return jsonify({"photos": [], "message": "No matching photos found"}), 200
@@ -221,8 +202,6 @@ def find_photos():
         print("Error in find_photos:", e)
         return jsonify({"error": "Failed to process the request. Check server logs for details."}), 500
 
-<<<<<<< Updated upstream
-=======
     
 
 @app.route('/api/upload_photo', methods=['POST'])
@@ -254,7 +233,6 @@ def upload_photo():
         return jsonify({"error": "Failed to upload the photo. Check server logs for details."}), 500
 
 
->>>>>>> Stashed changes
 
 @app.route('/api/result/<event_id>', methods=['GET'])
 def get_event_result(event_id):

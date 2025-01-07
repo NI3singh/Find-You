@@ -1,126 +1,3 @@
-<<<<<<< Updated upstream
-// document.addEventListener('DOMContentLoaded', () => {
-//     const video = document.getElementById('video');
-//     const canvas = document.getElementById('canvas');
-//     const acceptBtn = document.getElementById('accept-btn');
-//     const cameraSection = document.getElementById('camera-section');
-//     const consentSection = document.getElementById('consent-section');
-//     const captureBtn = document.getElementById('capture-btn');
-//     const retakeBtn = document.getElementById('retake-btn');
-//     const previewSection = document.getElementById('preview-section');
-//     const capturedImage = document.getElementById('captured-image');
-//     const findPhotosBtn = document.getElementById('find-photos-btn');
-//     const loadingSection = document.getElementById('loading-section');
-
-//     let stream = null;
-
-//     // Handle consent and camera initialization
-//     acceptBtn.addEventListener('click', async () => {
-//         consentSection.hidden = true;
-//         cameraSection.hidden = false;
-
-//         try {
-//             // Request camera access
-//             stream = await navigator.mediaDevices.getUserMedia({
-//                 video: {
-//                     facingMode: 'user',
-//                     width: { ideal: 1280 },
-//                     height: { ideal: 720 },
-//                 },
-//             });
-//             video.srcObject = stream;
-//             captureBtn.disabled = false;
-//         } catch (err) {
-//             console.error('Error accessing camera:', err);
-
-//             // Show permission pop-up
-//             alert(
-//                 'Unable to access your camera. Please ensure that:\n' +
-//                 '1. You have allowed camera permissions in your browser.\n' +
-//                 '2. The browser has access to your camera.\n' +
-//                 '3. You are accessing this website via HTTPS or localhost.'
-//             );
-
-//             // Re-enable the consent section
-//             cameraSection.hidden = true;
-//             consentSection.hidden = false;
-//         }
-//     });
-
-//     // Capture photo
-//     captureBtn.addEventListener('click', () => {
-//         canvas.width = video.videoWidth;
-//         canvas.height = video.videoHeight;
-//         canvas.getContext('2d').drawImage(video, 0, 0);
-
-//         capturedImage.src = canvas.toDataURL('image/jpeg');
-//         video.hidden = true;
-//         captureBtn.hidden = true;
-//         previewSection.hidden = false;
-//         retakeBtn.hidden = false;
-//     });
-
-//     // Retake photo
-//     retakeBtn.addEventListener('click', () => {
-//         video.hidden = false;
-//         captureBtn.hidden = false;
-//         previewSection.hidden = true;
-//         retakeBtn.hidden = true;
-//     });
-
-//     // Find photos
-//     findPhotosBtn.addEventListener('click', async () => {
-//         const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
-//         const eventId = getEventIdFromUrl(); // Function to extract event_id from URL
-
-//         try {
-//             cameraSection.hidden = true;
-//             loadingSection.hidden = false;
-
-//             const response = await fetch('/api/find_photos', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify({
-//                     image: imageData,
-//                     event_id: eventId,
-//                 }),
-//             });
-
-//             if (!response.ok) {
-//                 throw new Error('Failed to find photos');
-//             }
-
-//             const data = await response.json();
-//             if (data.resultId) {
-//                 window.location.href = `/result/${data.resultId}`;
-//             } else {
-//                 throw new Error('No resultId found in response');
-//             }
-//         } catch (error) {
-//             console.error('Error finding photos:', error);
-//             alert('Failed to process your photo. Please try again.');
-//             loadingSection.hidden = true;
-//             cameraSection.hidden = false;
-//         }
-//     });
-
-//     // Cleanup when the user leaves the page
-//     window.addEventListener('beforeunload', () => {
-//         if (stream) {
-//             stream.getTracks().forEach(track => track.stop());
-//         }
-//     });
-
-//     function getEventIdFromUrl() {
-//         const pathParts = window.location.pathname.split('/');
-//         return pathParts[pathParts.length - 1]; // Assumes URL ends with the event_id
-//     }
-// });
-
-=======
->>>>>>> Stashed changes
 
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('video');
@@ -136,10 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingSection = document.getElementById('loading-section');
     const uploadPhotoBtn = document.getElementById('upload-photo-btn');
     const uploadPhotoInput = document.getElementById('upload-photo-input');
-<<<<<<< Updated upstream
-
-    let stream = null;
-=======
     const mobileNumberInput = document.getElementById('mobile-number');
     const confirmNumberBtn = document.getElementById('confirm-number-btn');
     const displayMobileNumber = document.getElementById('display-mobile-number');
@@ -149,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let stream = null;
     let confirmedMobileNumber = '';
     let toleranceValue = 0.6;
->>>>>>> Stashed changes
 
     acceptBtn.addEventListener('click', async () => {
         consentSection.hidden = true;
@@ -175,9 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-<<<<<<< Updated upstream
-    captureBtn.addEventListener('click', () => {
-=======
     // Validate and confirm mobile number
     mobileNumberInput.addEventListener('input', () => {
         const isValid = /^[0-9]{10}$/.test(mobileNumberInput.value); // Check if it's a valid 10-digit number
@@ -211,30 +80,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Capture photo logic
     captureBtn.addEventListener('click', async () => {
->>>>>>> Stashed changes
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
 
-<<<<<<< Updated upstream
-        capturedImage.src = canvas.toDataURL('image/jpeg');
-=======
         const imageData = canvas.toDataURL('image/jpeg');
         capturedImage.src = imageData;
->>>>>>> Stashed changes
         video.hidden = true;
         captureBtn.hidden = true;
         previewSection.hidden = false;
         retakeBtn.hidden = false;
-<<<<<<< Updated upstream
-=======
 
         // Show confirmed mobile number in preview
         displayMobileNumber.textContent = confirmedMobileNumber;
 
         // Upload the captured image
         await uploadImage(imageData);
->>>>>>> Stashed changes
     });
 
     retakeBtn.addEventListener('click', () => {
@@ -244,47 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         retakeBtn.hidden = true;
     });
 
-<<<<<<< Updated upstream
-    findPhotosBtn.addEventListener('click', async () => {
-        const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
-        const eventId = getEventIdFromUrl();
-
-        try {
-            cameraSection.hidden = true;
-            loadingSection.hidden = false;
-
-            const response = await fetch('/api/find_photos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    image: imageData,
-                    event_id: eventId,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to find photos');
-            }
-
-            const data = await response.json();
-            if (data.resultId) {
-                window.location.href = `/result/${data.resultId}`;
-            } else {
-                throw new Error('No resultId found in response');
-            }
-        } catch (error) {
-            console.error('Error finding photos:', error);
-            alert('Failed to process your photo. Please try again.');
-            loadingSection.hidden = true;
-            cameraSection.hidden = false;
-        }
-    });
-
-=======
     // Upload photo logic
->>>>>>> Stashed changes
     uploadPhotoBtn.addEventListener('click', () => {
         uploadPhotoInput.click();
     });
@@ -292,17 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadPhotoInput.addEventListener('change', async (event) => {
         const file = event.target.files[0];
         if (file) {
-<<<<<<< Updated upstream
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('event_id', getEventIdFromUrl());
-=======
             const reader = new FileReader();
             reader.onload = async (e) => {
                 try {
                     // Preview the uploaded image
                     capturedImage.src = e.target.result;
->>>>>>> Stashed changes
 
                     // Prepare the form data for uploading the image
                     const formData = new FormData();
@@ -358,24 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-<<<<<<< Updated upstream
-                const data = await response.json();
-                if (data.resultId) {
-                    window.location.href = `/result/${data.resultId}`;
-                } else {
-                    alert('No matching photos found.');
-                }
-            } catch (error) {
-                console.error('Error uploading photo:', error);
-                alert('An error occurred while uploading the photo.');
-            } finally {
-                loadingSection.hidden = true;
-                cameraSection.hidden = false;
-            }
-        }
-    });
-
-=======
             // Read the file as a data URL
             reader.readAsDataURL(file);
         }
@@ -423,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Cleanup media stream on page unload
->>>>>>> Stashed changes
     window.addEventListener('beforeunload', () => {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
@@ -434,8 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const pathParts = window.location.pathname.split('/');
         return pathParts[pathParts.length - 1];
     }
-<<<<<<< Updated upstream
-=======
 
     // Upload image function
     async function uploadImage(imageData) {
@@ -463,5 +257,4 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('An error occurred while uploading the image.');
         }
     }
->>>>>>> Stashed changes
 });
