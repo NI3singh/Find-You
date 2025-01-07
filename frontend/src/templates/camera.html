@@ -24,6 +24,11 @@
 
             <div id="camera-section" hidden>
                 <div class="camera-container">
+                    <div class="form-group">
+                        <label for="mobile-number">Mobile Number</label>
+                        <input type="text" id="mobile-number" placeholder="Enter your mobile number" required>
+                        <button id="confirm-number-btn" class="btn btn-primary">Confirm Mobile Number</button>
+                    </div>
                     <video id="video" autoplay playsinline></video>
                     <canvas id="canvas" hidden></canvas>
                     <div class="camera-controls">
@@ -35,16 +40,9 @@
                 </div>
                 <div id="preview-section" hidden>
                     <img id="captured-image" alt="Captured photo">
-                    <button id="find-photos-btn">Find My Photos</button>
-                </div>
-                <div id="mobile-number-section" hidden>
-                    <div class="form-group">
-                        <label for="mobile-number">Mobile Number</label>
-                        <input type="tel" id="mobile-number" name="mobile-number" pattern="[0-9]{10}" placeholder="Enter your mobile number" required>
-                    </div>
-                    <button id="confirm-number-btn" class="btn btn-primary" disabled>Confirm Mobile Number</button>
-                </div>
-                
+                    <p>Mobile Number: <span id="display-mobile-number"></span></p>
+                    <button id="find-photos-btn" class="btn btn-primary">Find My Photos</button>
+                </div>  
             </div>
 
             <div id="loading-section" hidden>

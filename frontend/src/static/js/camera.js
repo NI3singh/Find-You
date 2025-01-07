@@ -12,11 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingSection = document.getElementById('loading-section');
     const uploadPhotoBtn = document.getElementById('upload-photo-btn');
     const uploadPhotoInput = document.getElementById('upload-photo-input');
-    const mobileNumberSection = document.getElementById('mobile-number-section');
-    const confirmNumberBtn = document.getElementById('confirm-number-btn');
     const mobileNumberInput = document.getElementById('mobile-number');
+    const confirmNumberBtn = document.getElementById('confirm-number-btn');
+    const displayMobileNumber = document.getElementById('display-mobile-number');
 
     let stream = null;
+    let confirmedMobileNumber = '';
+
+    // Disable buttons initially
+    captureBtn.disabled = true;
+    uploadPhotoBtn.disabled = true;
 
     // Consent to access the camera
     acceptBtn.addEventListener('click', async () => {
@@ -32,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
             });
             video.srcObject = stream;
-            captureBtn.disabled = false;
         } catch (err) {
             console.error('Error accessing camera:', err);
             alert(
@@ -43,21 +47,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Capture photo
+    // Validate and confirm mobile number
+    mobileNumberInput.addEventListener('input', () => {
+        const isValid = /^[0-9]{10}$/.test(mobileNumberInput.value); // Check if it's a valid 10-digit number
+        confirmNumberBtn.disabled = !isValid;
+    });
+
+    confirmNumberBtn.addEventListener('click', () => {
+        confirmedMobileNumber = mobileNumberInput.value.trim();
+        if (confirmedMobileNumber) {
+            alert('Mobile number confirmed!');
+            captureBtn.disabled = false;
+            uploadPhotoBtn.disabled = false;
+            mobileNumberInput.disabled = true; // Disable input after confirmation
+            confirmNumberBtn.disabled = true; // Disable confirm button
+        }
+    });
     captureBtn.addEventListener('click', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         canvas.getContext('2d').drawImage(video, 0, 0);
-
+        
         capturedImage.src = canvas.toDataURL('image/jpeg');
         video.hidden = true;
         captureBtn.hidden = true;
         previewSection.hidden = false;
         retakeBtn.hidden = false;
-
-        // Show the mobile number section
-        mobileNumberSection.hidden = false;
-        findPhotosBtn.disabled = true; // Disable find photos until the number is confirmed
+        
+        // Show confirmed mobile number in preview
+        displayMobileNumber.textContent = confirmedMobileNumber;
     });
 
     // Retake photo
@@ -66,64 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
         captureBtn.hidden = false;
         previewSection.hidden = true;
         retakeBtn.hidden = true;
-
-        // Hide the mobile number section
-        mobileNumberSection.hidden = true;
-        findPhotosBtn.disabled = true;
     });
 
-    // Validate and confirm mobile number
-    mobileNumberInput.addEventListener('input', () => {
-        const isValid = /^[0-9]{10}$/.test(mobileNumberInput.value); // Check if it's a valid 10-digit number
-        confirmNumberBtn.disabled = !isValid;
-    });
-
-    confirmNumberBtn.addEventListener('click', () => {
-        if (mobileNumberInput.value) {
-            findPhotosBtn.disabled = false; // Enable "Find My Photos" button
-            alert('Mobile number confirmed!');
-        }
-    });
-
-    // Find photos logic
-    findPhotosBtn.addEventListener('click', async () => {
-        const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
-        const eventId = getEventIdFromUrl();
-        const mobileNumber = mobileNumberInput.value;
-
-        try {
-            cameraSection.hidden = true;
-            loadingSection.hidden = false;
-
-            const response = await fetch('/api/find_photos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    image: imageData,
-                    event_id: eventId,
-                    mobile_number: mobileNumber, // Send mobile number to backend
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to find photos');
-            }
-
-            const data = await response.json();
-            if (data.resultId) {
-                window.location.href = `/result/${data.resultId}`;
-            } else {
-                throw new Error('No resultId found in response');
-            }
-        } catch (error) {
-            console.error('Error finding photos:', error);
-            alert('Failed to process your photo. Please try again.');
-            loadingSection.hidden = true;
-            cameraSection.hidden = false;
-        }
-    });
 
     // Upload photo logic
     uploadPhotoBtn.addEventListener('click', () => {
@@ -136,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('image', file);
             formData.append('event_id', getEventIdFromUrl());
-            formData.append('mobile_number', mobileNumberInput.value); // Include mobile number
+            formData.append('mobile_number', confirmedMobileNumber); // Include mobile number
 
             try {
                 cameraSection.hidden = true;
@@ -161,9 +123,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error uploading photo:', error);
                 alert('An error occurred while uploading the photo.');
             } finally {
+                // Clear the file input and reset UI
+                uploadPhotoInput.value = ''; // Clear the file input to avoid caching issues
                 loadingSection.hidden = true;
                 cameraSection.hidden = false;
             }
+        }
+    });
+
+    // Find photos logic
+    findPhotosBtn.addEventListener('click', async () => {
+        const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
+        const eventId = getEventIdFromUrl();
+
+        try {
+            cameraSection.hidden = true;
+            loadingSection.hidden = false;
+
+            const response = await fetch('/api/find_photos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image: imageData,
+                    event_id: eventId,
+                    mobile_number: confirmedMobileNumber, // Send mobile number to backend
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to find photos');
+            }
+
+            const data = await response.json();
+            if (data.resultId) {
+                window.location.href = `/result/${data.resultId}`;
+            } else {
+                throw new Error('No resultId found in response');
+            }
+        } catch (error) {
+            console.error('Error finding photos:', error);
+            alert('Failed to process your photo. Please try again.');
+            loadingSection.hidden = true;
+            cameraSection.hidden = false;
         }
     });
 
