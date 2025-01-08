@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Prepare the form data for uploading the image
                     const formData = new FormData();
                     formData.append('image', file);
+                    formData.append('mobile_number', confirmedMobileNumber);
 
                     // Display loading screen while processing
                     cameraSection.hidden = true;

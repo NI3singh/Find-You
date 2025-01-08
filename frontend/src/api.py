@@ -156,7 +156,8 @@ def find_photos():
             if not event_id or not mobile_number:
                 return jsonify({"error": "Missing event_id, or mobile_number"}), 400
 
-            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.png')
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
             print(f"Temp image path: {temp_image_path}")
 
         elif 'application/json' in request.content_type:
@@ -170,7 +171,8 @@ def find_photos():
             if not event_id or not mobile_number:
                 return jsonify({"error": "Missing event_id, or mobile_number"}), 400
 
-            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.png')
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
             print(f"Temp image path: {temp_image_path}")
 
         else:
@@ -183,6 +185,7 @@ def find_photos():
         print(f"Using tolerance: {tolerance}")
 
         from facer_2.imageFinder import process_input_image
+
         db_path = f"facial_features_{event_id}.db"
         print(f"Database path: {db_path}")
 
@@ -212,21 +215,31 @@ def upload_photo():
     try:
         print("Processing upload_photo API...")
         if 'multipart/form-data' in request.content_type:
+            # Retrieve the image and mobile number
             image_file = request.files.get('image')
+            mobile_number = request.form.get('mobile_number')
 
-            if not image_file:
-                return jsonify({"error": "No image provided"}), 400
+            # Check if both the image and mobile number are provided
+            if not image_file or not mobile_number:
+                return jsonify({"error": "Image or mobile number not provided"}), 400
 
-            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.png')
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
+
+            # Remove the existing selfie for this mobile number
+            if os.path.exists(temp_image_path):
+                os.remove(temp_image_path)
+
             print(f"Saving image to: {temp_image_path}")
             image_file.save(temp_image_path)
 
+            # Confirm if the image was saved successfully
             if os.path.exists(temp_image_path):
                 print("Image saved successfully!")
+                return jsonify({"message": f"Photo uploaded and saved as {temp_image_path}"}), 200
             else:
                 print("Image save failed!")
-
-            return jsonify({"message": "Photo uploaded and saved as temp_selfie.png"}), 200
+                return jsonify({"error": "Failed to save the image"}), 500
 
         else:
             return jsonify({"error": "Unsupported Content-Type. Use 'multipart/form-data'"}), 415
@@ -234,6 +247,7 @@ def upload_photo():
     except Exception as e:
         print("Error in upload_photo:", e)
         return jsonify({"error": "Failed to upload the photo. Check server logs for details."}), 500
+
 
 
 
