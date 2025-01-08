@@ -3,11 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const noPhotos = document.getElementById('no-photos');
     const downloadAllBtn = document.getElementById('download-all-btn');
     const loadingSpinner = document.getElementById('loading-spinner');
+    const updatetolerancebtn = document.getElementById('update-tolerance-btn');
+    const toleranceInput = document.getElementById('tolerance');
+    const findPhotosBtn = document.getElementById('find-photos-btn');
+    
+
+
+    let toleranceValue = 0.6;
 
     async function loadPhotos() {
         try {
-            const resultId = getResultIdFromUrl();
-            const response = await fetch(`/api/result/${resultId}`);
+            const resultId = getEventIdFromUrl();
+            const mobileNumber = getMobileNumberFromUrl();
+
+            if (!mobileNumber) {
+                console.error('Mobile number is missing in the URL');
+                alert('Mobile number is required to load the photos.');
+                return;
+            }
+
+            const response = await fetch(`/api/result/${resultId}?mobile_number=${mobileNumber}`);
 
             if (!response.ok) {
                 throw new Error('Failed to load photos');
@@ -16,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (!data.photos || data.photos.length === 0) {
-                noPhotos.hidden = false;  // Show "no photos" section
+                noPhotos.hidden = false; // Show "no photos" section
                 photosGrid.hidden = true; // Hide photos grid
                 downloadAllBtn.hidden = true; // Hide download button
                 return;
             }
 
-            noPhotos.hidden = true;  // Hide "no photos" section
+            noPhotos.hidden = true; // Hide "no photos" section
             photosGrid.hidden = false; // Show photos grid
             renderPhotos(data.photos);
             downloadAllBtn.hidden = false;
@@ -85,6 +100,76 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Failed to download photos. Please try again.');
         }
     });
+    toleranceInput.addEventListener('input', () => {
+        const isValid = parseFloat(toleranceInput.value) >= 0 && parseFloat(toleranceInput.value) <= 1;
+        updatetolerancebtn.disabled = !isValid;
+    });
+
+    updatetolerancebtn.addEventListener('click', () => {
+        toleranceValue = parseFloat(toleranceInput.value);
+        if (toleranceValue >= 0 && toleranceValue <= 1) {
+            alert(`Tolerance updated to ${toleranceValue}`);
+        } else {
+            alert('Please enter a valid tolerance value between 0.0 and 1.0.');
+        }
+    })
+
+    function getMobileNumberFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('mobile_number');
+    }
+    
+
+    function getEventIdFromUrl() {
+        const pathParts = window.location.pathname.split('/');
+        return pathParts[pathParts.length - 1];
+    }
+
+    findPhotosBtn.addEventListener('click', async () => {
+        const eventId = getEventIdFromUrl();
+        const mobileNumber = getMobileNumberFromUrl();
+        console.log("Event ID:", eventId);
+        console.log("Mobile Number:", mobileNumber);
+        console.log("Tolerance Value:", toleranceValue);
+
+        if (!mobileNumber) {
+            alert('Mobile number not found. Please go back to the camera page and confirm your mobile number.');
+            return;
+        }
+    
+        try {
+
+            const timestamp = new Date().getTime();
+            
+            const response = await fetch(`/api/find_photos?ts=${timestamp}`, { // Add `ts` to bypass caching
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    event_id: eventId,
+                    mobile_number: mobileNumber, // Send mobile number to backend
+                    tolerance: toleranceValue,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to find photos');
+            }
+    
+            const data = await response.json();
+            if (data.resultId) {
+                window.location.href = `/result/${data.resultId}?mobile_number=${mobileNumber}`;
+            } else {
+                throw new Error('No resultId found in response');
+            }
+        } catch (error) {
+            console.error('Error finding photos:', error);
+            alert('Failed to process your photo. Please try again.');
+        }
+    });
+    
+
 
     function getResultIdFromUrl() {
         const pathParts = window.location.pathname.split('/');

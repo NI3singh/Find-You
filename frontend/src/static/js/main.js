@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyLinkBtn = document.getElementById('copy-link-btn');
     const progressBar = document.getElementById('upload-progress-bar');
     const uploadStatus = document.getElementById('upload-status');
-
     const modal = document.getElementById('eventModal'); // Modal element
     const closeModal = document.getElementById('closeModal');
     const cancelButton = document.getElementById('cancelButton');

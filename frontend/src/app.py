@@ -5,12 +5,11 @@ from flask_cors import CORS
 import os
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-
+# Initialize the Flask app
 app = Flask(__name__,
     static_folder='static',
     template_folder='templates'
 )
-
 # Configuration
 app.config.update(
     SECRET_KEY=os.urandom(24),
@@ -18,11 +17,16 @@ app.config.update(
     MAX_CONTENT_LENGTH_PER_FILE=50 * 1024 * 1024,  # 50MB per file
     ALLOWED_EXTENSIONS={'png', 'jpg', 'jpeg','JPG','.heic'},
     FACE_RECOGNITION_THRESHOLD=0.5,
-    TEMPORARY_FOLDER='temp'
+    TEMPORARY_FOLDER=r'C:\Users\itsni\Desktop\frs\frontend\src\temp'
 )
 
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 # Ensure temporary directorie exist
+app.config['TEMPORARY_FOLDER'] = os.path.join(basedir, 'temp')
 os.makedirs(app.config['TEMPORARY_FOLDER'], exist_ok=True)
+
 
 # Enable CORS
 CORS(app)
