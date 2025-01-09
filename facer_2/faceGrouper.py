@@ -176,3 +176,4 @@ if __name__ == "__main__":
     except ValueError:
         print("Error: Invalid event ID. It must be an integer.")
         sys.exit(1)
+

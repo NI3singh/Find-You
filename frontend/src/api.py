@@ -5,7 +5,6 @@ from app import app
 import subprocess
 import sys 
 import base64
-import cv2
 from flask import send_file
 import zipfile
 from io import BytesIO

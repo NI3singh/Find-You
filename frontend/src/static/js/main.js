@@ -2,22 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const dragDropArea = document.getElementById('drag-drop-area');
     const fileInput = document.getElementById('file-input');
     const selectFilesBtn = document.getElementById('select-files-btn');
-    const uploadForm = document.getElementById('upload-form');
     const uploadBtn = document.getElementById('upload-btn');
     const generateBtn = document.getElementById('generate-btn'); // Generate button
     const previewContainer = document.getElementById('preview-container');
-    const shareSection = document.getElementById('share-section');
     const shareLink = document.getElementById('share-link');
     const copyLinkBtn = document.getElementById('copy-link-btn');
-    const progressBar = document.getElementById('upload-progress-bar');
-    const uploadStatus = document.getElementById('upload-status');
     const modal = document.getElementById('eventModal'); // Modal element
     const closeModal = document.getElementById('closeModal');
     const cancelButton = document.getElementById('cancelButton');
     const confirmButton = document.getElementById('confirmButton');
     const eventNameInput = document.getElementById('eventNameInput');
-    const eventId = generateBtn.getAttribute('data-event-id');
-    const passwordInput = document.getElementById('password-input'); // Assuming there's an input for password
 
     let selectedFiles = [];
 
@@ -242,4 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
             copyLinkBtn.textContent = 'Copy Link';
         }, 2000);
     });
+    
+    
 });

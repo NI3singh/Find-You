@@ -32,7 +32,12 @@
                     <button type="submit" id="upload-btn" disabled>Upload Photos</button>
                 </form>
             </section>
-            
+            <div id="processing-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="modal-message"></p>
+                </div>
+            </div>
             <!-- Modal for Event Name -->
             <div id="eventModal" class="modal" style="display: none;">
                 <div class="modal-content">
@@ -69,6 +74,7 @@
             </section>
         </main>
     </div>
+
     <script src="/static/js/main.js"></script>
 </body>
 </html>
