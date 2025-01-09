@@ -1,5 +1,3 @@
-# README.md content
-
 # Face Recognition Web Application
 
 This is a Flask-based web application for face recognition. Users can upload or capture photos to find matched faces from a dataset. The app also provides options to download all matched photos as a zip file.
@@ -83,7 +81,8 @@ This is a Flask-based web application for face recognition. Users can upload or 
 8. hit enter and used the link provided there to access your web app.
 
 ## Directory structure:
-└── chandreshsutariya-frs/
+
+    chandreshsutariya-frs/
     ├── README.md
     ├── facer_2/
     │   ├── LICENSE
