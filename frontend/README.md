@@ -119,6 +119,18 @@ This is a Flask-based web application for face recognition. Users can upload or 
                 └── result.html
 
 ## Screenshots
+![Upload-Page](https://github.com/user-attachments/assets/ac963755-8fbb-48ab-aac3-d8127f6c914e)
+
+![Terminal-Ouput](https://github.com/user-attachments/assets/44d0f79a-6359-4661-a76b-fe64071a7c55)
+
+![Camera-Page_1](https://github.com/user-attachments/assets/9fd3488f-e8c7-40c6-bb1c-aa1431aa46ea)
+
+![Camera-Page_2](https://github.com/user-attachments/assets/cc52390d-56cd-47d2-98bf-cebb9f4a4d95)
+
+![Finding_Match-Page](https://github.com/user-attachments/assets/f1e1cfa9-2cc0-40d6-a1ed-9e134e4c6077)
+
+![Result-Page](https://github.com/user-attachments/assets/d618ac11-072c-49a1-bb62-63f269158c80)
+
 
 ## Usage
 - Login with configured id and password.
