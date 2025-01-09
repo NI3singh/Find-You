@@ -32,7 +32,12 @@
                     <button type="submit" id="upload-btn" disabled>Upload Photos</button>
                 </form>
             </section>
-            
+            <div id="processing-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="modal-message"></p>
+                </div>
+            </div>
             <!-- Modal for Event Name -->
             <div id="eventModal" class="modal" style="display: none;">
                 <div class="modal-content">
@@ -45,8 +50,13 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Generate Button Section -->
             <section id="generate-section" style="text-align: center; margin-top: 20px;">
+                <div style="margin-bottom: 10px;">
+                    <label for="password-input">Set a Password for the Link</label>
+                    <input type="password" id="password-input" placeholder="Enter a secure password" style="padding: 10px; font-size: 16px; width: 300px;" />
+                </div>
                 <button id="generate-btn" disabled style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: not-allowed;">
                     Generate
                 </button>
@@ -60,9 +70,11 @@
                     <input type="text" id="share-link" readonly>
                     <button id="copy-link-btn">Copy Link</button>
                 </div>
+                
             </section>
         </main>
     </div>
+
     <script src="/static/js/main.js"></script>
 </body>
 </html>
