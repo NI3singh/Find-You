@@ -1,39 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Photos</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="/static/css/camera.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Find Your Photos</h1>
-            <p>Take a selfie to find your photos from the event</p>
-        </header>
 
-        <main>
-            <div id="consent-section">
-                <h2>Privacy Notice</h2>
-                <p>This application uses facial recognition to find your photos. Your selfie will only be used for this purpose and will not be stored.</p>
-                <button id="accept-btn">I Understand & Accept</button>
-            </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Find Your Photos</title>
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <link rel="stylesheet" href="/static/css/camera.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Find Your Photos</h1>
+                <p>Take a selfie to find your photos from the event</p>
+            </header>
 
-            <div id="camera-section" hidden>
-                <div class="camera-container">
-                    <video id="video" autoplay playsinline></video>
-                    <canvas id="canvas" hidden></canvas>
-                    <div class="camera-controls">
-                        <button id="capture-btn" disabled>Take Photo</button>
-                        <button id="retake-btn" hidden>Retake</button>
+            <main>
+                <div id="consent-section">
+                    <h2>Privacy Notice</h2>
+                    <p>This application uses facial recognition to find your photos. Your selfie will only be used for this purpose and will not be stored.</p>
+                    <button id="accept-btn">I Understand & Accept</button>
+                </div>
+
+                <div id="camera-section" hidden>
+                    <div class="camera-container">
+                        <div class="form-group">
+                            <label for="mobile-number">Mobile Number</label>
+                            <input type="text" id="mobile-number" placeholder="Enter your mobile number" required>
+                            <button id="confirm-number-btn" class="btn btn-primary">Confirm Mobile Number</button>
+                        </div>
+                        <video id="video" autoplay playsinline></video>
+                        <canvas id="canvas" hidden></canvas>
+                        <div class="camera-controls">
+                            <button id="capture-btn" disabled>Take Photo</button>
+                            <button id="retake-btn" hidden>Retake</button>
+                            <button id="upload-photo-btn" class="btn btn-primary">Upload Photo</button>
+                            <input type="file" id="upload-photo-input" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="tolerance-section">
+                        <label for="tolerance">Tolerance (0.0 - 1.0)</label>
+                        <input type="number" id="tolerance" name="tolerance" min="0" max="1" step="0.01" value="0.6">
+                        <button id="update-tolerance-btn" class="btn btn-secondary">Update Tolerance</button>
                     </div>
                 </div>
                 <div id="preview-section" hidden>
                     <img id="captured-image" alt="Captured photo">
-                    <button id="find-photos-btn">Find My Photos</button>
-                </div>
+                    <p>Mobile Number: <span id="display-mobile-number"></span></p>
+                    <button id="find-photos-btn" class="btn btn-primary">Find My Photos</button>
+                </div>  
             </div>
 
             <div id="loading-section" hidden>

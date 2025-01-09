@@ -9,11 +9,18 @@ import cv2
 from flask import send_file
 import zipfile
 from io import BytesIO
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+facegrouper_path = os.getenv('facegrouper_path')
+imagefinder_path = os.getenv('imagefinder_path')
+event_database_path = os.getenv('event_database_path')
+selfie_temp_path = os.getenv('selfie_temp_path')
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-
-from facer_2.imageFinder import process_input_image
 
 @app.route('/api/generate_faces', methods=['POST'])
 def generate_faces():
@@ -35,8 +42,16 @@ def generate_faces():
     try:
         # Run facegrouper.py processing in the background
         
-        subprocess.Popen(["python", r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py", str(event_id)])
-        # os.system(r"C:\Users\itsni\Desktop\FRS_ELaunch\facer_2\faceGrouper.py {event_id} &")
+        facegrouper_path = r"C:\Users\itsni\Desktop\frs\facer_2\faceGrouper.py"
+        if not os.path.exists(facegrouper_path):
+            return jsonify({"error": "faceGrouper.py not found at the specified path"}), 500
+
+        # Use the same Python executable running the Flask app
+        python_executable = sys.executable
+
+        # Call the subprocess
+        subprocess.Popen([python_executable, facegrouper_path, str(event_id)])
+        
         return jsonify({
             "message": f"Face processing started for event_id: {event_id}",
             "event_id": event_id,
@@ -125,22 +140,63 @@ def check_event_name():
 @app.route('/api/find_photos', methods=['POST'])
 def find_photos():
     try:
-        data = request.json
-        image_data = data.get('image')  # Base64-encoded selfie image
-        event_id = data.get('event_id')  # Current event ID
+        print("Processing find_photos API...")
+        print(f"Content-Type: {request.content_type}")
 
-        if not image_data or not event_id:
-            return jsonify({"error": "Missing image data or event_id"}), 400
+        mobile_number = None
+        tolerance = None
 
-        # Save the selfie temporarily
-        temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], 'temp_selfie.jpg')
-        with open(temp_image_path, 'wb') as temp_image:
-            temp_image.write(base64.b64decode(image_data))
+        if 'multipart/form-data' in request.content_type:
+            event_id = request.form.get('event_id')
+            mobile_number = request.form.get('mobile_number')
+            tolerance = request.form.get('tolerance')
 
-        # Process the selfie using imageFinder.py
+            print(f"Received multipart/form-data: event_id={event_id}, mobile_number={mobile_number}, tolerance={tolerance}")
+
+            if not event_id or not mobile_number:
+                return jsonify({"error": "Missing event_id, or mobile_number"}), 400
+
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
+            print(f"Temp image path: {temp_image_path}")
+
+        elif 'application/json' in request.content_type:
+            data = request.json
+            event_id = data.get('event_id')
+            mobile_number = data.get('mobile_number')
+            tolerance = data.get('tolerance')
+
+            print(f"Received JSON: event_id={event_id}, mobile_number={mobile_number}, tolerance={tolerance}")
+
+            if not event_id or not mobile_number:
+                return jsonify({"error": "Missing event_id, or mobile_number"}), 400
+
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
+            print(f"Temp image path: {temp_image_path}")
+
+        else:
+            return jsonify({"error": "Unsupported Content-Type. Use 'multipart/form-data' or 'application/json'"}), 415
+
+        try:
+            tolerance = float(tolerance) if tolerance is not None else 0.6
+        except ValueError:
+            tolerance = 0.6
+        print(f"Using tolerance: {tolerance}")
+
         from facer_2.imageFinder import process_input_image
+
         db_path = f"facial_features_{event_id}.db"
-        matching_images = process_input_image(temp_image_path, db_path, event_id)
+        print(f"Database path: {db_path}")
+
+        if not os.path.exists(db_path):
+            return jsonify({"error": f"Database for event_id {event_id} not found"}), 404
+
+        matching_images = process_input_image(temp_image_path, db_path, event_id, mobile_number, tolerance)
+        # matching_images_for_number = [
+        #     image for image in matching_images if image["mobile_number"] == mobile_number
+        # ]
+        print(f"Matching images: {matching_images}")
 
         if not matching_images:
             return jsonify({"photos": [], "message": "No matching photos found"}), 200
@@ -152,6 +208,93 @@ def find_photos():
         print("Error in find_photos:", e)
         return jsonify({"error": "Failed to process the request. Check server logs for details."}), 500
 
+    
+
+@app.route('/api/upload_photo', methods=['POST'])
+def upload_photo():
+    try:
+        print("Processing upload_photo API...")
+        if 'multipart/form-data' in request.content_type:
+            # Retrieve the image and mobile number
+            image_file = request.files.get('image')
+            mobile_number = request.form.get('mobile_number')
+
+            # Check if both the image and mobile number are provided
+            if not image_file or not mobile_number:
+                return jsonify({"error": "Image or mobile number not provided"}), 400
+
+            # Save the image as temp_selfie_<mobile_number>.png
+            temp_image_path = os.path.join(app.config['TEMPORARY_FOLDER'], f'temp_selfie_{mobile_number}.png')
+
+            # Remove the existing selfie for this mobile number
+            if os.path.exists(temp_image_path):
+                os.remove(temp_image_path)
+
+            print(f"Saving image to: {temp_image_path}")
+            image_file.save(temp_image_path)
+
+            # Confirm if the image was saved successfully
+            if os.path.exists(temp_image_path):
+                print("Image saved successfully!")
+                return jsonify({"message": f"Photo uploaded and saved as {temp_image_path}"}), 200
+            else:
+                print("Image save failed!")
+                return jsonify({"error": "Failed to save the image"}), 500
+
+        else:
+            return jsonify({"error": "Unsupported Content-Type. Use 'multipart/form-data'"}), 415
+
+    except Exception as e:
+        print("Error in upload_photo:", e)
+        return jsonify({"error": "Failed to upload the photo. Check server logs for details."}), 500
+
+
+
+
+# @app.route('/api/result/<event_id>', methods=['GET'])
+# def get_event_result(event_id):
+#     try:
+#         matched_db_path = f"Matched_Faces_event_{event_id}.db"
+#         if not os.path.exists(matched_db_path):
+#             return jsonify({"photos": []}), 200  # Return empty photos if no database
+
+#         conn_matched = sqlite3.connect(matched_db_path)
+#         cursor_matched = conn_matched.cursor()
+#         cursor_matched.execute("SELECT image_name FROM Matches")
+#         matched_image_names = [os.path.basename(row[0]) for row in cursor_matched.fetchall()]
+#         conn_matched.close()
+#         print('images from matched database :', matched_image_names )
+
+#         mobile_number = request.args.get("mobile_number")
+#         print(f"Mobile number: {mobile_number} from result API")
+
+#         if not matched_image_names:
+#             return jsonify({"photos": []}), 200
+
+#         event_db_path = "events_data.db"
+#         conn_events = sqlite3.connect(event_db_path)
+#         cursor_events = conn_events.cursor()
+#         placeholders = ', '.join(['?'] * len(matched_image_names))
+#         query = f"""
+#             SELECT image_name, image_data FROM events
+#             WHERE event_id = ? AND image_name IN ({placeholders})
+#         """
+#         cursor_events.execute(query, [event_id] + matched_image_names)
+#         images = []
+#         for image_name, image_data in cursor_events.fetchall():
+#             images.append({
+#                 "name": image_name,
+#                 "data": base64.b64encode(image_data).decode('utf-8')
+#             })
+        
+#         conn_events.close()
+#         return jsonify({"photos": images}), 200
+        
+#     except Exception as e:
+#         print(f"Error in get_event_results: {e}")
+#         return jsonify({"error": "Failed to fetch results"}), 500
+
+
 @app.route('/api/result/<event_id>', methods=['GET'])
 def get_event_result(event_id):
     try:
@@ -159,15 +302,27 @@ def get_event_result(event_id):
         if not os.path.exists(matched_db_path):
             return jsonify({"photos": []}), 200  # Return empty photos if no database
 
+        # Fetch the mobile number from the query parameter
+        mobile_number = request.args.get("mobile_number")
+        print(f"Mobile number: {mobile_number} from result API")
+
+        if not mobile_number:
+            return jsonify({"error": "Mobile number is required"}), 400
+
+        # Connect to the matched database and filter by mobile number
         conn_matched = sqlite3.connect(matched_db_path)
         cursor_matched = conn_matched.cursor()
-        cursor_matched.execute("SELECT image_name FROM Matches")
-        matched_image_names = [os.path.basename(row[0]) for row in cursor_matched.fetchall()]
+        cursor_matched.execute(
+            "SELECT image_name FROM Matches WHERE mobile_number = ?", (mobile_number,)
+        )
+        matched_image_names = [row[0] for row in cursor_matched.fetchall()]
         conn_matched.close()
+        print('Images from matched database:', matched_image_names)
 
         if not matched_image_names:
             return jsonify({"photos": []}), 200
 
+        # Fetch image data from the events database for the matched images
         event_db_path = "events_data.db"
         conn_events = sqlite3.connect(event_db_path)
         cursor_events = conn_events.cursor()
@@ -183,13 +338,14 @@ def get_event_result(event_id):
                 "name": image_name,
                 "data": base64.b64encode(image_data).decode('utf-8')
             })
-
+        
         conn_events.close()
         return jsonify({"photos": images}), 200
 
     except Exception as e:
         print(f"Error in get_event_results: {e}")
         return jsonify({"error": "Failed to fetch results"}), 500
+
 
 @app.route('/api/result/<event_id>/download', methods=['GET'])
 def download_matched_photos(event_id):
