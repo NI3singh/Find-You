@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, render_template
 import sqlite3
 import os
 from app import app
@@ -26,6 +26,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 def generate_faces():
     """Trigger facegrouper processing for a specific event_id."""
     event_id = request.json.get('event_id')
+    password = request.json.get('password')  # Admin-provided password
+
+    if not password:
+        return jsonify({"error": "Password is required"}), 400
 
     if not event_id:
         # If no event_id is provided, fetch the latest event_id from the database
@@ -40,8 +44,30 @@ def generate_faces():
         return jsonify({"error": f"No images found for event_id {event_id}"}), 404
 
     try:
+        # Save the password in the Password_{event_id}.db database
+        password_db_path = f"Password_{event_id}.db"
+        conn = sqlite3.connect(password_db_path)
+        cursor = conn.cursor()
+
+        # Create the Password table if it doesn't exist
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Passwords (
+                event_id INTEGER PRIMARY KEY,
+                password TEXT NOT NULL
+            )
+        ''')
+
+        # Insert or update the password for the event
+        cursor.execute('''
+            INSERT INTO Passwords (event_id, password)
+            VALUES (?, ?)
+            ON CONFLICT(event_id) DO UPDATE SET password=excluded.password
+        ''', (event_id, password))
+
+        conn.commit()
+        conn.close()
+
         # Run facegrouper.py processing in the background
-        
         facegrouper_path = r"C:\Users\itsni\Desktop\frs\facer_2\faceGrouper.py"
         if not os.path.exists(facegrouper_path):
             return jsonify({"error": "faceGrouper.py not found at the specified path"}), 500
@@ -55,7 +81,8 @@ def generate_faces():
         return jsonify({
             "message": f"Face processing started for event_id: {event_id}",
             "event_id": event_id,
-            "share_link": f"{request.host_url}camera/{event_id}"
+            "share_link": f"{request.host_url}camera/{event_id}",
+            "password": password  # Return the password
         }), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -135,6 +162,44 @@ def check_event_name():
         return jsonify({"exists": True}), 200
     else:
         return jsonify({"exists": False}), 200
+
+@app.route('/api/validate_password', methods=['POST'])
+def validate_password():
+    """Validate the password for the given event_id and render the camera page if successful."""
+    data = request.get_json()
+    event_id = data.get('event_id')
+    password = data.get('password')
+
+    if not password:
+        return jsonify({"error": "Password is required."}), 400
+
+    password_db_path = f"Password_{event_id}.db"
+
+    # Check if the Password database exists
+    if not os.path.exists(password_db_path):
+        return jsonify({"error": "Password database not found for this event."}), 404
+
+    try:
+        # Validate the password from the database
+        conn = sqlite3.connect(password_db_path)
+        cursor = conn.cursor()
+        cursor.execute('SELECT password FROM Passwords WHERE event_id = ?', (event_id,))
+        stored_password = cursor.fetchone()
+        conn.close()
+
+        if not stored_password:
+            return jsonify({"error": "Password not found for this event."}), 404
+
+        stored_password = stored_password[0]
+        if password != stored_password:
+            return jsonify({"error": "Invalid password. Please try again."}), 403
+
+        # Password is valid, return success
+        return jsonify({"message": "Password validated successfully."}), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Error during password validation: {e}"}), 500
+
 
 
 @app.route('/api/find_photos', methods=['POST'])
@@ -247,52 +312,6 @@ def upload_photo():
     except Exception as e:
         print("Error in upload_photo:", e)
         return jsonify({"error": "Failed to upload the photo. Check server logs for details."}), 500
-
-
-
-
-# @app.route('/api/result/<event_id>', methods=['GET'])
-# def get_event_result(event_id):
-#     try:
-#         matched_db_path = f"Matched_Faces_event_{event_id}.db"
-#         if not os.path.exists(matched_db_path):
-#             return jsonify({"photos": []}), 200  # Return empty photos if no database
-
-#         conn_matched = sqlite3.connect(matched_db_path)
-#         cursor_matched = conn_matched.cursor()
-#         cursor_matched.execute("SELECT image_name FROM Matches")
-#         matched_image_names = [os.path.basename(row[0]) for row in cursor_matched.fetchall()]
-#         conn_matched.close()
-#         print('images from matched database :', matched_image_names )
-
-#         mobile_number = request.args.get("mobile_number")
-#         print(f"Mobile number: {mobile_number} from result API")
-
-#         if not matched_image_names:
-#             return jsonify({"photos": []}), 200
-
-#         event_db_path = "events_data.db"
-#         conn_events = sqlite3.connect(event_db_path)
-#         cursor_events = conn_events.cursor()
-#         placeholders = ', '.join(['?'] * len(matched_image_names))
-#         query = f"""
-#             SELECT image_name, image_data FROM events
-#             WHERE event_id = ? AND image_name IN ({placeholders})
-#         """
-#         cursor_events.execute(query, [event_id] + matched_image_names)
-#         images = []
-#         for image_name, image_data in cursor_events.fetchall():
-#             images.append({
-#                 "name": image_name,
-#                 "data": base64.b64encode(image_data).decode('utf-8')
-#             })
-        
-#         conn_events.close()
-#         return jsonify({"photos": images}), 200
-        
-#     except Exception as e:
-#         print(f"Error in get_event_results: {e}")
-#         return jsonify({"error": "Failed to fetch results"}), 500
 
 
 @app.route('/api/result/<event_id>', methods=['GET'])

@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayMobileNumber = document.getElementById('display-mobile-number');
     const updatetolerancebtn = document.getElementById('update-tolerance-btn');
     const toleranceInput = document.getElementById('tolerance');
+    const passwordModal = document.getElementById('password-modal');
+    const passwordInput = document.getElementById('password-input');
+    const submitPasswordBtn = document.getElementById('submit-password-btn');
+    const passwordError = document.getElementById('password-error');
 
     let stream = null;
     let confirmedMobileNumber = '';
@@ -25,6 +29,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     captureBtn.disabled = true;
     uploadPhotoBtn.disabled = true;
+    cameraSection.hidden = true; // Show the camera section
+    consentSection.hidden = true;
+
+    submitPasswordBtn.addEventListener('click', async () => {
+        const password = passwordInput.value.trim();
+        const eventId = window.location.pathname.split('/').pop(); // Extract event_id from URL
+    
+        if (!password) {
+            passwordError.textContent = 'Please enter a password.';
+            passwordError.style.display = 'block';
+            return;
+        }
+    
+        try {
+            const response = await fetch('/api/validate_password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ event_id: eventId, password }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                // Password validated, hide modal and enable buttons
+                passwordModal.style.display = 'none';
+                passwordError.style.display = 'none'; // Hide any previous error
+                consentSection.hidden = false; // Show the consent section
+            } else {
+                const errorData = await response.json();
+                passwordError.textContent = errorData.error || 'Invalid password. Please try again.';
+                passwordError.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Error validating password:', error);
+            passwordError.textContent = 'An error occurred. Please try again.';
+            passwordError.style.display = 'block';
+        }
+    });
+    
 
     acceptBtn.addEventListener('click', async () => {
         consentSection.hidden = true;
@@ -82,23 +126,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Capture photo logic
+    // captureBtn.addEventListener('click', async () => {
+    //     canvas.width = video.videoWidth;
+    //     canvas.height = video.videoHeight;
+    //     canvas.getContext('2d').drawImage(video, 0, 0);
+
+    //     const imageData = canvas.toDataURL('image/jpeg');
+    //     capturedImage.src = imageData;
+    //     video.hidden = true;
+    //     captureBtn.hidden = true;
+    //     previewSection.hidden = false;
+    //     retakeBtn.hidden = false;
+
+    //     // Show confirmed mobile number in preview
+    //     displayMobileNumber.textContent = confirmedMobileNumber;
+
+    //     // Upload the captured image
+    //     await uploadImage(imageData);
+    // });
+
     captureBtn.addEventListener('click', async () => {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-
-        const imageData = canvas.toDataURL('image/jpeg');
-        capturedImage.src = imageData;
-        video.hidden = true;
-        captureBtn.hidden = true;
-        previewSection.hidden = false;
-        retakeBtn.hidden = false;
-
-        // Show confirmed mobile number in preview
-        displayMobileNumber.textContent = confirmedMobileNumber;
-
-        // Upload the captured image
-        await uploadImage(imageData);
+        try {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+    
+            const imageData = canvas.toDataURL('image/jpeg');
+            capturedImage.src = imageData;
+            
+            // Show loading state
+            captureBtn.disabled = true;
+            loadingSection.hidden = false;
+    
+            // Upload with better error handling
+            await uploadImage(imageData, confirmedMobileNumber);
+    
+            // Update UI on success
+            video.hidden = true;
+            captureBtn.hidden = true;
+            previewSection.hidden = false;
+            retakeBtn.hidden = false;
+            displayMobileNumber.textContent = confirmedMobileNumber;
+    
+        } catch (error) {
+            alert(error.message || 'Failed to upload image. Please try again.');
+        } finally {
+            captureBtn.disabled = false;
+            loadingSection.hidden = true;
+        }
     });
 
     retakeBtn.addEventListener('click', () => {
@@ -237,29 +312,107 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Upload image function
-    async function uploadImage(imageData) {
+    // async function uploadImage(imageData) {
+    //     try {
+    //         // Convert base64 to a Blob
+    //         const blob = await fetch(imageData).then((res) => res.blob());
+
+    //         // Create FormData and append the Blob
+    //         const formData = new FormData();
+    //         formData.append('image', blob, 'temp_selfie.png');
+
+    //         // Send the image to the server
+    //         const response = await fetch('/api/upload_photo', {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error('Failed to upload image');
+    //         }
+
+    //         console.log('Image uploaded successfully.');
+    //     } catch (error) {
+    //         console.error('Error uploading image:', error);
+    //         alert('An error occurred while uploading the image.');
+    //     }
+    // }
+
+    async function uploadImage(imageData, mobileNumber) {
         try {
-            // Convert base64 to a Blob
-            const blob = await fetch(imageData).then((res) => res.blob());
-
-            // Create FormData and append the Blob
+            // Validate inputs
+            if (!imageData) {
+                throw new Error('No image data provided');
+            }
+    
+            // Convert base64 to a Blob if imageData is base64
+            let imageBlob;
+            if (typeof imageData === 'string' && imageData.startsWith('data:image')) {
+                try {
+                    imageBlob = await fetch(imageData).then(res => res.blob());
+                } catch (error) {
+                    throw new Error(`Failed to convert base64 to blob: ${error.message}`);
+                }
+            } else if (imageData instanceof Blob) {
+                imageBlob = imageData;
+            } else {
+                throw new Error('Invalid image format provided');
+            }
+    
+            // Validate file size (e.g., 10MB limit)
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+            if (imageBlob.size > MAX_FILE_SIZE) {
+                throw new Error('Image file is too large (max 10MB)');
+            }
+    
+            // Create and validate FormData
             const formData = new FormData();
-            formData.append('image', blob, 'temp_selfie.png');
-
-            // Send the image to the server
+            formData.append('image', imageBlob, 'temp_selfie.png');
+            if (mobileNumber) {
+                formData.append('mobile_number', mobileNumber);
+            }
+    
+            // Send request with timeout
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    
             const response = await fetch('/api/upload_photo', {
                 method: 'POST',
                 body: formData,
+                signal: controller.signal
             });
-
+    
+            clearTimeout(timeoutId);
+    
             if (!response.ok) {
-                throw new Error('Failed to upload image');
+                const errorText = await response.text();
+                throw new Error(`Server responded with ${response.status}: ${errorText}`);
             }
-
-            console.log('Image uploaded successfully.');
+    
+            const result = await response.json();
+            console.log('Image uploaded successfully:', result);
+            return result;
+    
         } catch (error) {
-            console.error('Error uploading image:', error);
-            alert('An error occurred while uploading the image.');
+            // Specific error handling
+            if (error.name === 'AbortError') {
+                console.error('Upload timed out after 30 seconds');
+                throw new Error('Upload timed out. Please try again.');
+            }
+            
+            if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+                console.error('Network error during upload:', error);
+                throw new Error('Network error. Please check your connection and try again.');
+            }
+    
+            console.error('Error uploading image:', {
+                message: error.message,
+                stack: error.stack,
+                timestamp: new Date().toISOString()
+            });
+    
+            throw error; // Re-throw to be handled by calling function
         }
     }
-});
+    
+});     

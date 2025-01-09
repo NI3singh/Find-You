@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelButton = document.getElementById('cancelButton');
     const confirmButton = document.getElementById('confirmButton');
     const eventNameInput = document.getElementById('eventNameInput');
+    const eventId = generateBtn.getAttribute('data-event-id');
+    const passwordInput = document.getElementById('password-input'); // Assuming there's an input for password
 
     let selectedFiles = [];
 
@@ -101,8 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     generateBtn.addEventListener('click', async () => {
         const eventId = generateBtn.getAttribute('data-event-id');
+        const passwordInput = document.getElementById('password-input').value.trim();
         if (!eventId) {
             alert("Event ID not found. Please ensure you have completed the upload.");
+            return;
+        }
+        if (!passwordInput) {
+            alert("Please enter a password to secure the shareable link.");
             return;
         }
     
@@ -116,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ event_id: eventId }),
+                body: JSON.stringify({ event_id: eventId, password: passwordInput }),
             });
     
             if (!response.ok) {
