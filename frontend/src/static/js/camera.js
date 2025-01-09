@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     toleranceInput.addEventListener('input', () => {
-        const isValid = parseFloat(toleranceInput.value) >= 0 && parseFloat(toleranceInput.value) <= 1;
+        const isValid = parseFloat(toleranceInput.value) >= 0.6 && parseFloat(toleranceInput.value) <= 0.9;
         updatetolerancebtn.disabled = !isValid;
     });
 
     updatetolerancebtn.addEventListener('click', () => {
         toleranceValue = parseFloat(toleranceInput.value);
-        if (toleranceValue >= 0 && toleranceValue <= 1) {
+        if (toleranceValue >= 0.6 && toleranceValue <= 0.9) {
             alert(`Tolerance updated to ${toleranceValue}`);
         } else {
             alert('Please enter a valid tolerance value between 0.0 and 1.0.');
