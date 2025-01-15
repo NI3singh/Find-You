@@ -78,7 +78,7 @@ This is a Flask-based web application for face recognition. Users can upload or 
    ```
    example: ngrok http http://localhost:8080 --> ngrok http http://localhost:5000 (as i'm running my application on port = 5000)
    ```
-8. hit enter and used the link provided there to access your web app.
+8. Tap enter and use the link provided there to access your web app.
 
 ## Directory structure:
 
